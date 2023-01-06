@@ -1,0 +1,15 @@
+.wrapper {
+
+}
+
+.cate-list {
+    display: flex;
+    list-style: none;
+}
+
+.cate-item {
+    font-size: 1.4rem;
+    color: var(--grey-color);
+    cursor: pointer;
+    margin-right: 14px;
+}

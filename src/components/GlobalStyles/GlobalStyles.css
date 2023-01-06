@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700;900&display=swap");
+
+:root {
+  --primary-color: #3399ff;
+  --grey-color: #808089;
+  --primary-background-color: #b0e0e6;
+  --hover-color: #d7e3fb;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: "Roboto", sans-serif;
+  text-size-adjust: 100%;
+}
+
+body {
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+}
