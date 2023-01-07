@@ -1,0 +1,18 @@
+.wrapper {
+  width: 100%;
+  background-color: white;
+}
+
+.section {
+  margin: 20px 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 18px;
+}
+
+.footer {
+  padding: 20px 0;
+  font-size: 1.2rem;
+  margin: 0px 10px;
+  border-top: 0.5px solid var(--grey-color);
+}

@@ -5,6 +5,7 @@
   --grey-color: #808089;
   --primary-background-color: #b0e0e6;
   --hover-color: #d7e3fb;
+  --hover-grey: rgba(39, 39, 42, 0.12);
 }
 
 * {
@@ -22,4 +23,5 @@ html {
 body {
   line-height: 1.5;
   text-rendering: optimizeSpeed;
+  background-color: #f5f5fa;
 }

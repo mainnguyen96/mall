@@ -1,0 +1,9 @@
+.wrapper {
+  width: fit-content;
+  height: fit-content;
+  background-color: red;
+  font-size: 1.2rem;
+  color: white;
+  padding: 0px 4px;
+  border-radius: 10px;
+}

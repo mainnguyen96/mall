@@ -1,21 +1,19 @@
 import classNames from "classnames/bind";
-import Button from "~/components/Button";
 
-import Search from "~/components/Search";
-import SearchCategory from "~/components/SearchCategory";
+import ProductList from "~/components/ProductList";
+import TemplePage from "../TemplePage";
+import ProductCate from "~/components/ProductCate";
+import styles from "./Home.module.css";
 
-import styles from './Home.module.css'
-
-const cx = classNames.bind(styles)
+const cx = classNames.bind(styles);
 
 function Home() {
-    return ( 
-        <div className={cx('wrapper')}>
-            <Search/>
-            <SearchCategory/>
-            <Button/>
-        </div>
-     );
+  return (
+    <TemplePage>
+      <ProductCate />
+      <ProductList />
+    </TemplePage>
+  );
 }
 
 export default Home;

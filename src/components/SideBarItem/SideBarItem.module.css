@@ -1,0 +1,15 @@
+.wrapper {
+  background-color: white;
+}
+
+.header {
+  font-size: 1.4rem;
+  padding: 5px;
+}
+
+.list {
+  list-style: none;
+}
+
+.item {
+}
