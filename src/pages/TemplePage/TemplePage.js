@@ -9,12 +9,12 @@ import styles from "./TemplePage.module.css";
 
 const cx = classNames.bind(styles);
 
-function TemplePage({ children }) {
+function TemplePage({ children, handleShowSideBar }) {
   return (
     <div className={cx("wrapper")}>
       <Header />
       <div className={cx("menu-btn")}>
-        <WidgetButton icon={faBars} />
+        <WidgetButton onClick={() => handleShowSideBar(true)} icon={faBars} />
       </div>
       <div className={cx("content")}>{children}</div>
       <div className={cx("mess-btn")}>

@@ -13,6 +13,12 @@
   cursor: pointer;
   border-radius: 8px;
   background-color: white;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+  text-align: left;
 }
 
 .wrapper:hover {
@@ -48,9 +54,11 @@
 .item {
   color: black;
   font-weight: 400;
+  flex-wrap: nowrap;
 }
 
 .grey:hover,
 .item:hover {
   background-color: var(--hover-grey);
+  
 }

@@ -1,0 +1,147 @@
+.form-wrapper {
+    position: relative;
+  max-width: 800px;
+  min-width: 400px;
+  width: 800px;
+  background-color: white;
+  /* position: fixed; */
+  z-index: 200;
+  margin: auto;
+  display: flex;
+  border-radius: 18px;
+  box-shadow: 0 0 10px 1px var(--hover-color);
+}
+
+.close-btn {
+    position: absolute;
+    right: -20px;
+    top: -20px;
+    height: 42px;
+    width: 42px;
+    border: none;
+    background-color: white;
+    border-radius: 50%;
+    font-size: 2.4rem;
+    color: var(--grey-color);
+    cursor: pointer;
+}
+
+.form-content {
+  padding: 40px;
+  width: 500px;
+}
+
+.greeting {
+  font-size: 2.4rem;
+}
+
+.label {
+  font-size: 1.5rem;
+}
+
+.form {
+  padding: 30px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-input {
+  font-size: 2.4rem;
+  border: none;
+  outline: none;
+  border-bottom: 0.5px solid rgb(221, 221, 227);
+  margin-bottom: 30px;
+}
+
+.phone-input::placeholder {
+  color: var(--input-placeholder);
+}
+
+.phone-submit {
+  font-size: 2rem;
+  padding: 12px;
+  border: none;
+  color: white;
+  background-color: rgb(255, 66, 78);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.phone-submit:hover {
+  opacity: 0.8;
+}
+
+.img-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: auto;
+  width: 300px;
+  background-color: var(--hover-color);
+  color: var(--primary-color);
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+.image {
+  margin-top: 30px;
+  height: 204px;
+  width: 204px;
+}
+
+.img-desc1 {
+  padding-top: 20px;
+  font-size: 1.8rem;
+}
+
+.img-desc2 {
+  font-size: 1.4rem;
+}
+
+.other-method {
+}
+
+.other-label {
+  font-size: 1.5rem;
+  display: flex;
+  white-space: nowrap;
+  align-items: center;
+}
+
+.other-label p {
+  margin: 0 10px;
+}
+
+.line {
+  content: "";
+  height: 1px;
+  width: 100%;
+  flex-grow: 1;
+  background-color: rgb(221, 221, 227);
+}
+
+.method {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.method-icon {
+  font-size: 3rem;
+  padding: 10px 10px 0px 10px;
+  cursor: pointer;
+}
+
+.method-icon:hover {
+  opacity: 0.6;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

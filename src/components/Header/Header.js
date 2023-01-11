@@ -5,6 +5,7 @@ import {
   faMessage,
   faLocationDot,
   faUserCircle,
+  faGlobe,
 } from "@fortawesome/free-solid-svg-icons";
 
 import logo from "~/assets/images/logo.png";
@@ -29,7 +30,7 @@ function Header() {
             <Button label={"Notify"} icon={faBell} />
           </li>
           <li className={cx("func-item")}>
-            <Button label={"Message"} icon={faMessage} />
+            <Button label={"English"} icon={faGlobe} />
           </li>
           <li className={cx("func-item")}>
             <Button label={"Cart"} icon={faCartShopping} />

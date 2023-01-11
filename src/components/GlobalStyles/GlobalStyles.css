@@ -6,6 +6,7 @@
   --primary-background-color: #b0e0e6;
   --hover-color: #d7e3fb;
   --hover-grey: rgba(39, 39, 42, 0.12);
+  --input-placeholder: #999999;
 }
 
 * {

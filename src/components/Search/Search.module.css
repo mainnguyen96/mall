@@ -1,4 +1,8 @@
 .wrapper {
+  position: relative;
+}
+
+.search-bar {
   height: 40px;
   display: flex;
   align-items: center;
@@ -7,7 +11,7 @@
   transition: transform 0.2s;
 }
 
-.wrapper:hover {
+.search-bar:hover {
   box-shadow: 0 2px 1.5px 0px var(--hover-color);
   transform: translateY(1px);
   border-bottom: none;
@@ -57,4 +61,14 @@
 .button:active {
   transform: translateY(1px);
   border-bottom: none;
+}
+
+.search-list {
+  width: 100%;
+  position: absolute;
+  top: 42px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 0 10px 1px var(--hover-color);
+  z-index: 100;
 }

@@ -6,9 +6,9 @@ import styles from "./WidgetButton.module.css";
 
 const cx = classNames.bind(styles);
 
-function WidgetButton({ icon }) {
+function WidgetButton({ icon, onClick }) {
   return (
-    <button className={cx("wrapper")}>
+    <button onClick={onClick} className={cx("wrapper")}>
       <div className={cx("badge")}>
         <Badge />
       </div>

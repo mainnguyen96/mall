@@ -1,6 +1,14 @@
 .wrapper {
-  margin-top: 16px;
-  padding: 5px 20px;
-  width: 200px;
+  padding: 5px 10px;
+  width: 230px;
   background-color: white;
+  position: absolute;
+  left: -230px;
+  box-shadow: 0 0 10px 1px var(--hover-color);
+  border-radius: 18px;
+  transition: transform 0.2s ease-in;
+}
+
+.show {
+  transform: translateX(230px);
 }

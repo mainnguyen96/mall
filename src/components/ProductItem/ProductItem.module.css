@@ -5,10 +5,13 @@
   border-radius: 10px;
   font-size: 1.4rem;
   cursor: pointer;
+  transition: transform 0.2s ease-in;
+  overflow: hidden;
 }
 
 .wrapper:hover {
   box-shadow: 0 2px 4px 0 var(--hover-color);
+  transform: translateY(-1px) translateX(1px);
 }
 
 .image {
