@@ -1,12 +1,19 @@
-.wrapper {
-  display: flex;
-  align-items: center;
-  background-color: white;
+.background {
+  width: 100vw;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  position: fixed;
+  background-color: white;
+}
+
+.wrapper {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  background-color: inherit;
   z-index: 200;
+  max-width: 1200px;
 }
 
 .logo {

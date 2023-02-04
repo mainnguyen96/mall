@@ -1,6 +1,10 @@
 .wrapper {
+  margin: auto;
   width: 100%;
   background-color: white;
+  max-width: 1200px;
+  border-radius: 18px;
+  height: fit-content;
 }
 
 .section {

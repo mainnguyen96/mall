@@ -20,7 +20,7 @@ function TemplePage({ children, handleShowSideBar }) {
       <div className={cx("mess-btn")}>
         <WidgetButton icon={faCommentDots} />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

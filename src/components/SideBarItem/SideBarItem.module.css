@@ -1,5 +1,10 @@
 .wrapper {
+  margin-top: 10px;
   background-color: white;
+}
+
+.wrapper + .wrapper {
+  border-top: 2px solid var(--line-color);
 }
 
 .header {
@@ -12,4 +17,8 @@
 }
 
 .item {
+}
+
+.item-link {
+  text-decoration: none;
 }

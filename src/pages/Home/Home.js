@@ -1,21 +1,24 @@
+import { useState, useEffect } from "react";
 import classNames from "classnames/bind";
-import { useState } from "react";
 
-import ProductList from "~/components/ProductList";
+import { getData } from "~/firebaseServices/firebaseServices";
 import TemplePage from "../TemplePage";
+import ProductList from "~/components/ProductList";
 import ProductCate from "~/components/ProductCate";
-import styles from "./Home.module.css";
-import LoginForm from "~/components/LoginForm";
-import Login from "~/components/LoginForm/Login/Login";
-import Verify from "~/components/LoginForm/Verify";
-import Password from "~/components/LoginForm/Password";
 import SideBar from "~/components/SideBar";
 import Modal from "~/components/Modal";
+import styles from "./Home.module.css";
 
 const cx = classNames.bind(styles);
 
 function Home() {
+  const [products, setProducts] = useState();
   const [showSideBar, setShowSideBar] = useState(false);
+  useEffect(() => {
+    getData("products").then((data) => {
+      setProducts(Object.values(data));
+    });
+  }, []);
   const handleShowSideBar = (isShow) => {
     setShowSideBar(isShow);
   };
@@ -28,7 +31,7 @@ function Home() {
       )}
       <SideBar isShow={showSideBar}></SideBar>
       <ProductCate />
-      <ProductList />
+      {products && <ProductList products={products} />}
     </TemplePage>
   );
 }

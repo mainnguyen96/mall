@@ -7,6 +7,7 @@
   --hover-color: #d7e3fb;
   --hover-grey: rgba(39, 39, 42, 0.12);
   --input-placeholder: #999999;
+  --line-color: rgb(221, 221, 227);
 }
 
 * {

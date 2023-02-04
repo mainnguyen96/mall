@@ -6,9 +6,9 @@ import styles from "./Button.module.css";
 
 const cx = classNames.bind(styles);
 
-function Button({ icon, label, type, location }) {
+function Button({ icon, label, type, location, onClick }) {
   return (
-    <button className={cx("wrapper", type)}>
+    <button className={cx("wrapper", type)} onClick={onClick}>
       <div className={cx("badge")}>
         <Badge />
       </div>

@@ -1,4 +1,6 @@
 .wrapper {
+  margin: auto;
+  max-width: 1200px;
 }
 
 .list {
@@ -8,5 +10,5 @@
 }
 
 .item {
-  margin: 4px;
+  margin: 4px 5px;
 }

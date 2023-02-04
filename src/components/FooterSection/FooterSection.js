@@ -1,22 +1,51 @@
+import { useEffect, useState } from "react";
+import { ref, onValue, query, orderByChild, equalTo } from "firebase/database";
 import classNames from "classnames/bind";
 
+import { firebaseDB } from "~/firebaseServices/firebaseServices";
 import styles from "./FooterSection.module.css";
 
 const cx = classNames.bind(styles);
 
-function FooterSection({ header }) {
+function FooterSection({ label }) {
+  const [footerData, setFooterData] = useState();
+  useEffect(() => {
+    const footerData = query(
+      ref(firebaseDB, "footer/footerData"),
+      orderByChild("type"),
+      equalTo(label)
+    );
+    onValue(
+      footerData,
+      (snapshot) => {
+        const data = snapshot.val();
+        setFooterData(Object.values(data));
+      },
+      { onlyOnce: true }
+    );
+  }, []);
   return (
     <div className={cx("wrapper")}>
-      <h3 className={cx("header")}>Customer support</h3>
-      <ul className={cx("list")}>
-        <li className={cx("item")}>
-          Hotline: 1900-6035 (1000 VND/minute, 8-21 hours including Saturday and
-          Sunday)
-        </li>
-        <li className={cx("item")}>frequently asked Questions</li>
-        <li className={cx("item")}>Submit a support request</li>
-        <li className={cx("item")}>Ordering guide</li>
-      </ul>
+      <h3 className={cx("header")}>{label}</h3>
+      {footerData && (
+        <ul className={cx("list")}>
+          {footerData.map((item) => {
+            if (item.label) {
+              return (
+                <li key={item.id} className={cx("item")}>
+                  {item.label}
+                </li>
+              );
+            } else if (item.icon) {
+              return (
+                <li key={item.id} className={cx("icon")}>
+                  <img src={item.icon} className={cx("icon-img")} alt="icon" />
+                </li>
+              );
+            }
+          })}
+        </ul>
+      )}
     </div>
   );
 }

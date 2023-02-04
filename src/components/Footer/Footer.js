@@ -1,38 +1,32 @@
 import classNames from "classnames/bind";
+import { useState, useEffect } from "react";
+import { ref, onValue, query } from "firebase/database";
 
+import { firebaseDB } from "~/firebaseServices/firebaseServices";
 import FooterSection from "../FooterSection";
 import styles from "./Footer.module.css";
 
 const cx = classNames.bind(styles);
-const footerData = [
-  {
-    heading: "Customer support",
-    item: [
-      {
-        type: "number",
-        data: "Hotline: 1900-6035 (1000 VND/minute, 8-21 hours including Saturday and Sunday)",
-      },
-    ],
-  },
-];
 
 function Footer() {
+  const [footerType, setFooterType] = useState();
+  useEffect(() => {
+    const footerType = query(ref(firebaseDB, "footer/footerType"));
+
+    onValue(footerType, (snapshot) => {
+      const data = snapshot.val();
+      setFooterType(Object.values(data));
+    });
+  }, []);
   return (
     <div className={cx("wrapper")}>
       <section className={cx("section")}>
-        <FooterSection />
-        <FooterSection />
-        <FooterSection />
-        <FooterSection />
-        <FooterSection />
-        <FooterSection />
-        <FooterSection />
-        <FooterSection />
-        <FooterSection />
-        <FooterSection />
-        <FooterSection />
-        <FooterSection />
+        {footerType &&
+          footerType.map((label) => (
+            <FooterSection key={label} label={label} />
+          ))}
       </section>
+
       <div className={cx("footer")}>
         <p>
           Trụ sở chính: Tòa nhà X, Số 69, đường Cách Mạng Tháng 8, phường 12,

@@ -5,37 +5,22 @@ import styles from "./ProductList.module.css";
 
 const cx = classNames.bind(styles);
 
-function ProductList() {
+function ProductList({ products }) {
   return (
     <div className={cx("wrapper")}>
       <ul className={cx("list")}>
-        <li className={cx("item")}>
-          <ProductItem />
-        </li>
-        <li className={cx("item")}>
-          <ProductItem />
-        </li>
-        <li className={cx("item")}>
-          <ProductItem />
-        </li>
-        <li className={cx("item")}>
-          <ProductItem />
-        </li>
-        <li className={cx("item")}>
-          <ProductItem />
-        </li>
-        <li className={cx("item")}>
-          <ProductItem />
-        </li>
-        <li className={cx("item")}>
-          <ProductItem />
-        </li>
-        <li className={cx("item")}>
-          <ProductItem />
-        </li>
-        <li className={cx("item")}>
-          <ProductItem />
-        </li>
+        {products.map((product) => (
+          <li key={product.id} className={cx("item")}>
+            <ProductItem
+              img={product.img}
+              name={product.name}
+              star={product.star}
+              sold={product.sold}
+              discount={product.discount}
+              price={product.price}
+            />
+          </li>
+        ))}
       </ul>
     </div>
   );
