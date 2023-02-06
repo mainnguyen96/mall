@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 
 import icon from "~/assets/icons/ProductCateIcon/productCate.png";
-import ProductCateItem from "../ProductCateItem";
+import ProductCateItem from "./ProductCateItem";
 import styles from "./ProductCate.module.css";
 
 const cx = classNames.bind(styles);

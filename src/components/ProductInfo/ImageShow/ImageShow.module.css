@@ -1,0 +1,19 @@
+.wrapper {
+}
+
+.main-img {
+  height: 444px;
+  width: 444px;
+  cursor: pointer;
+}
+
+.img-list {
+  list-style: none;
+  display: flex;
+}
+
+.other-img {
+  height: 64px;
+  width: 64px;
+  cursor: pointer;
+}

@@ -1,9 +1,9 @@
-import classNames from "classnames/bind";
 import { useState, useEffect } from "react";
 import { ref, onValue, query } from "firebase/database";
+import classNames from "classnames/bind";
 
 import { firebaseDB } from "~/firebaseServices/firebaseServices";
-import FooterSection from "../FooterSection";
+import FooterSection from "./FooterSection";
 import styles from "./Footer.module.css";
 
 const cx = classNames.bind(styles);

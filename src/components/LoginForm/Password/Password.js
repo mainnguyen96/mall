@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
+import Button from "~/components/Button";
 import styles from "./Password.module.css";
 
 const cx = classNames.bind(styles);
@@ -28,9 +29,7 @@ function Password() {
               value={values.password}
               placeholder={"PassWord"}
             />
-            <button className={cx("pass-submit")} type="submit">
-              Log in
-            </button>
+            <Button label={"Log in"} type={"submit"} />
           </form>
         )}
       </Formik>

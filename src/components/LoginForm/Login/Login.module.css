@@ -29,20 +29,6 @@
   color: var(--input-placeholder);
 }
 
-.phone-submit {
-  font-size: 2rem;
-  padding: 12px;
-  border: none;
-  color: white;
-  background-color: rgb(255, 66, 78);
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.phone-submit:hover {
-  opacity: 0.8;
-}
-
 .other-method {
 }
 

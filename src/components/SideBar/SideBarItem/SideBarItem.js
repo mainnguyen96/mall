@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
 
 import itemIcon from "~/assets/images/itemIcon.png";
-import Button from "../Button";
+import BarItem from "../../BarItem";
 import styles from "./SideBarItem.module.css";
 
 const cx = classNames.bind(styles);
@@ -17,7 +17,7 @@ function SideBarItem({ label, items }) {
           .map(([label, data], index) => (
             <li key={index} className={cx("item")}>
               <Link to={`/category/${data.path}`} className={cx("item-link")}>
-                <Button
+                <BarItem
                   type={"item"}
                   label={label}
                   icon={data.icon}

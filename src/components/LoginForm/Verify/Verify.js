@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import { Formik } from "formik";
 import { useRef } from "react";
 
+import Button from "~/components/Button";
 import styles from "./Verify.module.css";
 
 const cx = classNames.bind(styles);
@@ -76,10 +77,7 @@ function Verify() {
                   />
                 ))}
             </div>
-
-            <button className={cx("code-submit")} type="submit">
-              Verification
-            </button>
+            <Button label={'Verification'} type={'submit'}/>
           </form>
         )}
       </Formik>

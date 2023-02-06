@@ -1,6 +1,10 @@
 .wrapper {
 }
 
+.wrapper + .wrapper {
+  border-top: 2px solid var(--line-color);
+}
+
 .label {
   font-size: 1.4rem;
   font-weight: 500;

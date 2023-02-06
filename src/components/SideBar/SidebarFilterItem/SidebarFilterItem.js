@@ -6,14 +6,15 @@ import styles from "./SidebarFilterItem.module.css";
 const cx = classNames.bind(styles);
 const data = ["128GB", "32GB", "64GB", "256GB", "16GB", "8GB", "512GB"];
 
-function SidebarFilterItem() {
+function SidebarFilterItem({filter, label}) {
+  console.log('filter:', filter)
   return (
     <div className={cx("wrapper")}>
-      <div className={cx("label")}>ROM</div>
+      <div className={cx("label")}>{label}</div>
       <Formik>
         {(value) => (
           <form className={cx("form")}>
-            {data.map((data) => (
+            {filter.map((data) => (
               <label className={cx("item")}>
                 <input type="checkbox" className={cx("checkbox")} />
                 {data}

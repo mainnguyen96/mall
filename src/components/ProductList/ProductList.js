@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 
-import ProductItem from "../ProductItem";
+import ProductItem from "./ProductItem";
 import styles from "./ProductList.module.css";
 
 const cx = classNames.bind(styles);

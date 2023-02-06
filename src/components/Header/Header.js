@@ -8,9 +8,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import logo from "~/assets/images/logo.png";
-import Button from "../Button";
+import BarItem from "../BarItem";
 import Search from "../Search";
-import SearchCategory from "../SearchCategory";
+import SearchCategory from "../Search/SearchCategory";
 import styles from "./Header.module.css";
 
 const cx = classNames.bind(styles);
@@ -27,19 +27,19 @@ function Header() {
         <div className={cx("nav")}>
           <ul className={cx("function")}>
             <li className={cx("func-item")}>
-              <Button label={"Notify"} icon={faBell} />
+              <BarItem label={"Notify"} icon={faBell} />
             </li>
             <li className={cx("func-item")}>
-              <Button label={"English"} icon={faGlobe} />
+              <BarItem label={"English"} icon={faGlobe} />
             </li>
             <li className={cx("func-item")}>
-              <Button label={"Cart"} icon={faCartShopping} />
+              <BarItem label={"Cart"} icon={faCartShopping} />
             </li>
             <li className={cx("func-item")}>
-              <Button label={"Me"} icon={faUserCircle} />
+              <BarItem label={"Me"} icon={faUserCircle} />
             </li>
           </ul>
-          <Button
+          <BarItem
             type={"grey"}
             label={"Deliver to"}
             location={"Viet Nam"}

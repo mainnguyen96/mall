@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Formik } from "formik";
 import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
 
+import Button from "~/components/Button";
 import styles from "./Login.module.css";
 
 const cx = classNames.bind(styles);
@@ -22,9 +23,7 @@ function Login() {
               value={values.phone}
               placeholder={"Phone Number"}
             />
-            <button className={cx("phone-submit")} type="submit">
-              Continue
-            </button>
+            <Button label={"Continue"} type={"submit"} />
           </form>
         )}
       </Formik>

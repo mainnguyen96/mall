@@ -1,0 +1,10 @@
+.wrapper {
+  height: 32px;
+  width: 32px;
+  font-size: 2rem;
+  color: var(--grey-color);
+  border-radius: 50%;
+  border: 1px solid var(--line-color);
+  cursor: pointer;
+  background-color: white;
+}

@@ -1,64 +1,14 @@
 .wrapper {
-  position: relative;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  font-family: "Roboto", sans-serif;
-  color: var(--primary-color);
-  font-weight: 500;
-  font-size: 1.4rem;
-  padding: 8px 10px;
+  font-size: 2rem;
+  padding: 12px;
   border: none;
+  min-width: 300px;
+  color: white;
+  background-color: rgb(255, 66, 78);
+  border-radius: 10px;
   cursor: pointer;
-  border-radius: 8px;
-  background-color: white;
-  word-wrap: break-word;
-  -ms-word-break: break-all;
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  hyphens: auto;
-  text-align: left;
 }
 
 .wrapper:hover {
-  background-color: var(--hover-color);
-}
-
-.badge {
-  position: absolute;
-  top: -5px;
-  left: 15px;
-}
-
-.faIcon {
-  margin-right: 6px;
-  font-size: 1.8rem;
-}
-
-.imgIcon {
-  height: 30px;
-  width: 30px;
-  margin-right: 6px;
-}
-
-.location {
-  font-weight: 600;
-  margin-left: 8px;
-}
-
-.grey {
-  color: var(--grey-color);
-}
-
-.item {
-  color: black;
-  font-weight: 400;
-  flex-wrap: nowrap;
-}
-
-.grey:hover,
-.item:hover {
-  background-color: var(--hover-grey);
-  
+  opacity: 0.8;
 }
