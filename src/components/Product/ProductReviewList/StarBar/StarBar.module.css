@@ -1,0 +1,16 @@
+.wrapper {
+    list-style: none;
+    display: flex;
+}
+
+.large img {
+    height: 25px;
+}
+
+.medium img {
+    height: 22px;
+}
+
+.small img {
+    height: 18px;
+}

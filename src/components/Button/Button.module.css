@@ -12,3 +12,42 @@
 .wrapper:hover {
   opacity: 0.8;
 }
+
+.wrapper + .wrapper {
+  margin-left: 10px;
+}
+
+.icon {
+  margin-right: 5px;
+}
+
+.outline {
+  font-size: 1.4rem;
+  background-color: white;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  font-weight: 600;
+  min-width: 60px;
+  border-radius: 6px;
+}
+
+.non-outline {
+  font-size: 1.4rem;
+  background-color: white;
+  color: var(--primary-color);
+  font-weight: 600;
+  min-width: 60px;
+  border-radius: 6px;
+}
+
+.primary {
+  font-size: 1.6rem;
+  color: white;
+  background-color: var(--primary-color);
+}
+
+.small {
+  font-weight: 400;
+  padding: 6px;
+  height: 30px;
+}

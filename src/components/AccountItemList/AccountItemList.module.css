@@ -1,0 +1,74 @@
+.wrapper {
+  background-color: white;
+  max-width: 250px;
+  border-radius: 18px;
+  padding: 10px;
+}
+
+.header {
+  display: flex;
+  padding: 10px;
+}
+
+.avatar {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.name {
+  color: var(--grey-color);
+}
+
+.name p {
+  font-size: 1.4rem;
+}
+
+.name h4 {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: black;
+}
+
+.item-list {
+  list-style: none;
+}
+
+.item {
+  font-size: 1.3rem;
+  color: var(--grey-color);
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 5px 10px;
+  cursor: pointer;
+  border-radius: 15px;
+}
+
+.item:hover {
+  background-color: var(--hover-grey);
+}
+
+.normal {
+  cursor: default;
+  color: black;
+}
+
+.normal .icon {
+  color: var(--grey-color);
+}
+
+.normal:hover {
+  background-color: transparent;
+}
+
+.icon {
+  font-size: 2rem;
+  margin-right: 34px;
+  width: 25px;
+}
+
+.small {
+  margin-right: 10px;
+}

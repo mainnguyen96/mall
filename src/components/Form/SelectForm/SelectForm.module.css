@@ -1,0 +1,13 @@
+.select {
+    padding: 10px;
+    outline: none;
+    max-width: 100px;
+    width: 100px;
+    border: 1px solid var(--line-color);
+    border-radius: 8px;
+    margin: 10px;
+}
+
+.select:focus {
+    border-color: var(--primary-color);
+}

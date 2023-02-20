@@ -1,0 +1,12 @@
+.wrapper {
+  background-color: white;
+  margin-left: 20px;
+  padding: 10px;
+  border-radius: 18px;
+}
+
+.header {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-left: 10px;
+}

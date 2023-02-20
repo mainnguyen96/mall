@@ -6,6 +6,8 @@ import {
   orderByChild,
   equalTo,
   get,
+  startAt,
+  endAt,
 } from "firebase/database";
 
 const firebaseConfig = {
@@ -38,4 +40,31 @@ export const getData = async (path, child, filterValue) => {
   const snapshot = await get(queryData);
   const data = snapshot.val();
   return data;
+};
+
+export const searchData = async (path, child, filterValue) => {
+  let returnData = {};
+  const queryStart = query(
+    ref(firebaseDB, path),
+    orderByChild(child),
+    startAt(filterValue),
+    endAt(filterValue + "\uf8ff")
+  );
+
+  const queryMiddle = query(
+    ref(firebaseDB, path),
+    orderByChild(child),
+    startAt(`%${filterValue}%`),
+    endAt(filterValue )
+  );
+
+  let snapshot = await get(queryStart)
+  if (snapshot.val()) {
+    returnData = snapshot.val()
+  } else {
+    snapshot = await get(queryMiddle)
+    returnData = snapshot.val()
+  }
+
+  return Object.values(returnData)
 };

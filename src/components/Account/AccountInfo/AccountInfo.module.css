@@ -1,0 +1,83 @@
+.wrapper {
+  margin: 20px;
+  display: flex;
+}
+
+.personal {
+}
+
+.label {
+  font-size: 1.6rem;
+  color: var(--grey-color);
+  font-weight: 400;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  height: 104px;
+  width: 104px;
+  border: 2px solid var(--primary-color);
+  border-radius: 50%;
+  margin: 20px;
+  cursor: pointer;
+}
+
+.birthday {
+  display: flex;
+  align-items: center;
+}
+
+.label2 {
+  font-size: 1.4rem;
+  max-width: 150px;
+  width: 150px;
+}
+
+.sex {
+  display: flex;
+  align-items: center;
+}
+
+.submit {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.avatar-menu {
+  list-style: none;
+  background-color: white;
+  box-shadow: 0 0 10px 1px var(--hover-color);
+  padding: 5px 0;
+  border-radius: 18px;
+}
+
+.other {
+  margin-left: 10px;
+  padding-left: 20px;
+  border-left: 1px solid var(--line-color);
+}
+
+.phone-email {
+}
+
+.label {
+}
+
+.section-list {
+  list-style: none;
+}
+
+.section-item {
+  display: flex;
+  align-items: center;
+}
+
+.section-text {
+  flex-grow: 1;
+}

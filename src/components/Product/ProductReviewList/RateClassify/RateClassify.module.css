@@ -1,0 +1,27 @@
+.wrapper {
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+.star-count {
+  width: 138px;
+  height: 6px;
+  background-color: var(--line-color);
+  border-radius: 5px;
+  margin: 0 10px;
+}
+
+.count {
+  height: 6px;
+  width: 0;
+  border-radius: 5px;
+  background-color: var(--grey-color);
+}
+
+.label {
+  font-size: 1.4rem;
+}

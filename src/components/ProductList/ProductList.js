@@ -18,6 +18,7 @@ function ProductList({ products }) {
               sold={product.sold}
               discount={product.discount}
               price={product.price}
+              productId={product.id}
             />
           </li>
         ))}

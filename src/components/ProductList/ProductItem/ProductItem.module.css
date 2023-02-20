@@ -14,6 +14,10 @@
   transform: translateY(-1px) translateX(1px);
 }
 
+.link {
+  text-decoration: none;
+}
+
 .image {
   width: 188px;
   height: 188px;
