@@ -2,6 +2,7 @@ import classNames from "classnames/bind";
 import AccountInfo from "~/components/Account/AccountInfo/AccountInfo";
 import AccountNotice from "~/components/Account/AccountNotice";
 import AccountPage from "~/components/Account/AccountPage/AccountPage";
+import Order from "~/components/Account/Order";
 import AccountItemList from "~/components/AccountItemList/AccountItemList";
 import TemplePage from "../TemplePage";
 
@@ -15,7 +16,7 @@ function User() {
       <div className={cx("wrapper")}>
         <AccountItemList />
         {/* <AccountInfo /> */}
-        <AccountNotice />
+        <Order/>
       </div>
     </TemplePage>
   );

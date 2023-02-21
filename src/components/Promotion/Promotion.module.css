@@ -1,0 +1,41 @@
+.wrapper {
+  font-size: 1.3rem;
+  margin-top: 20px;
+  border: 1px solid var(--line-color);
+  padding: 10px 10px 20px 20px;
+  border-radius: 18px;
+}
+
+.promotion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.promotion-label {
+  font-weight: 500;
+}
+
+.promotion-sublabel {
+  color: var(--grey-color);
+  display: flex;
+  align-items: center;
+}
+
+.promotion-icon {
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.promotion-btn {
+  margin-top: 10px;
+}
+
+.icon-label {
+  max-width: 160px;
+  color: white;
+  background-color: rgb(56, 56, 61);
+  padding: 5px;
+  font-size: 1.4rem;
+  border-radius: 8px;
+}

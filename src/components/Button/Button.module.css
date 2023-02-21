@@ -2,7 +2,8 @@
   font-size: 2rem;
   padding: 12px;
   border: none;
-  min-width: 300px;
+  min-width: 260px;
+  width: inherit;
   color: white;
   background-color: rgb(255, 66, 78);
   border-radius: 10px;

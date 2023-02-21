@@ -1,0 +1,61 @@
+.wrapper {
+  display: flex;
+  padding: 10px 20px;
+  align-items: center;
+  font-size: 1.3rem;
+}
+
+.checkbox {
+  height: 16px;
+  width: 16px;
+  margin-right: 20px;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.product-img {
+  width: 80px;
+}
+
+.product-name {
+  margin-left: 10px;
+}
+
+.price,
+.quantity,
+.money {
+  max-width: 150px;
+  width: 150px;
+  text-align: center;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-icon {
+  border: 1px solid var(--line-color);
+  padding: 8px;
+}
+
+.quantity-label {
+  padding: 10px;
+  font-size: 1.4rem;
+}
+
+.money {
+  color: red;
+}
+
+.icon {
+  height: 18px;
+  width: 18px;
+  color: var(--grey-color);
+  cursor: pointer;
+}

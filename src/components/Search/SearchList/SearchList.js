@@ -1,27 +1,38 @@
+import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames/bind";
-import SearchItem from "./SearchItem";
-import { useSelector } from "react-redux";
-import { selectAllProducts } from "~/features/productsSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
 
+import { fetchProducts } from "~/features/productsSlice";
+import SearchItem from "./SearchItem";
 import styles from "./SearchList.module.css";
 
 const cx = classNames.bind(styles);
 
+const searchHistory = ["iphone", "samsung"];
+
 function SearchList({}) {
-  const products = useSelector(selectAllProducts);
+  const dispatch = useDispatch();
+  const handleClickHistory = (data) => {
+    dispatch(fetchProducts(data));
+    console.log("click");
+  };
   return (
     <ul className={cx("list-wrapper")}>
-      {products && products.map(product => (
-        <li key={product.id} className={cx("item")}>
-          <SearchItem
-          name={product.name}
-          sold={product.sold}
-          img={
-            product.img[0]
-          }
-        />
-        </li>
-      ))}
+      {searchHistory &&
+        searchHistory.map((history) => (
+          <li
+            onClick={() => handleClickHistory(history)}
+            key={history}
+            className={cx("item")}
+          >
+            <FontAwesomeIcon
+              className={cx("item-icon")}
+              icon={faClockRotateLeft}
+            />
+            {history}
+          </li>
+        ))}
     </ul>
   );
 }

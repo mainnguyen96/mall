@@ -3,4 +3,6 @@ export const routes = {
   category: "/category/:path",
   product: "/product/:productId",
   user: "/user",
+  cart: "/cart",
+  checkout: "/checkout",
 };

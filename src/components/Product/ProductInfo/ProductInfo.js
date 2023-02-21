@@ -11,7 +11,7 @@ import Ship from "./Ship";
 const cx = classNames.bind(styles);
 
 function ProductInfo({ name, brand, review, sold, price, imgs }) {
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const currency = new Intl.NumberFormat("vi-VN", {
     style: "currency",
     currency: "VND",
@@ -33,13 +33,11 @@ function ProductInfo({ name, brand, review, sold, price, imgs }) {
   return (
     <div className={cx("wrapper")}>
       <div className={cx("images")}>
-        <ImageShow imgs={imgs}/>
+        <ImageShow imgs={imgs} />
       </div>
       <div className={cx("info")}>
         <h3 className={cx("brand")}>Brand: {brand}</h3>
-        <h3 className={cx("name")}>
-          {name}
-        </h3>
+        <h3 className={cx("name")}>{name}</h3>
         <div className={cx("more")}>
           <div className={cx("rating")}>
             <FontAwesomeIcon className={cx("rating-start")} icon={faStar} />

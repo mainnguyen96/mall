@@ -1,14 +1,16 @@
 .wrapper {
   margin: auto;
   max-width: 1200px;
+  display: flex;
 }
 
 .list {
   display: flex;
   flex-wrap: wrap;
   list-style: none;
+  justify-content: center;
 }
 
 .item {
-  margin: 4px 5px;
+  margin: 4px 4px;
 }

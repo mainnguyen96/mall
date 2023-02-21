@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faL, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "~/features/productsSlice";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 import styles from "./Search.module.css";
 import SearchList from "./SearchList/SearchList";
 import { Formik, Form, Field } from "formik";
-import config from "../config";
+import config from "../../config";
 import Modal from "../Modal";
 
 const cx = classNames.bind(styles);
@@ -34,6 +34,7 @@ function Search() {
               state: values,
             });
             dispatch(fetchProducts(values.search));
+            setShowList(false)
           }}
         >
           {(formik) => (
@@ -49,12 +50,14 @@ function Search() {
               }}
             >
               <input
+                autoComplete="off"
                 name={"search"}
                 id={"search"}
                 ref={inputRef}
                 type="text"
                 value={formik.values.search}
                 onChange={formik.handleChange}
+                onClick={() => setShowList(true)}
                 placeholder="What are you looking for today?"
                 className={cx("text")}
               />

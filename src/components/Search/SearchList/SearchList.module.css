@@ -1,40 +1,23 @@
 .list-wrapper {
-    width: 100%;
-    background-color: white;
-    list-style: none;
-    padding: 5px 10px;
+  width: 100%;
+  background-color: white;
+  list-style: none;
+  padding: 5px 10px;
 }
 
 .item {
-
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 12px;
 }
 
-.item-wrapper {
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    border-radius: 14px;
+.item:hover {
+  background-color: var(--hover-grey);
 }
 
-.item-wrapper:hover {
-    background-color: var(--hover-grey);
-}
-
-.item-img {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    margin: 10px 20px;
-}
-
-.item-info {
-    flex-grow: 1;
-}
-
-.item-name {
-    font-size: 1.2rem;
-}
-
-.item-num {
-    font-size: 1.1rem;
+.item-icon {
+  padding: 10px;
+  color: var(--grey-color);
 }

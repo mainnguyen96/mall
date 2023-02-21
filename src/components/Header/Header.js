@@ -1,3 +1,5 @@
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
 import {
   faBell,
@@ -6,16 +8,13 @@ import {
   faUserCircle,
   faGlobe,
 } from "@fortawesome/free-solid-svg-icons";
-import { useDispatch } from "react-redux";
 
 import logo from "~/assets/images/logo.png";
 import BarItem from "../BarItem";
-import Search from "../Search";
-import SearchCategory from "../Search/SearchCategory";
-import styles from "./Header.module.css";
-import { Link } from "react-router-dom";
-import config from "../config";
 import { fetchProducts } from "~/features/productsSlice";
+import Search from "../Search";
+import config from "../../config";
+import styles from "./Header.module.css";
 
 const cx = classNames.bind(styles);
 
@@ -32,7 +31,7 @@ function Header() {
         </Link>
         <div className={cx("search")}>
           <Search />
-          <SearchCategory />
+          {/* <SearchCategory /> */}
         </div>
         <div className={cx("nav")}>
           <ul className={cx("function")}>
@@ -46,7 +45,7 @@ function Header() {
               <BarItem label={"Cart"} icon={faCartShopping} />
             </li>
             <li className={cx("func-item")}>
-              <BarItem label={"Me"} icon={faUserCircle} />
+              <BarItem label={"Account"} icon={faUserCircle} />
             </li>
           </ul>
           <BarItem
