@@ -32,6 +32,8 @@
 }
 
 .rating {
+  list-style: none;
+  display: flex;
 }
 
 .rating-start {

@@ -5,6 +5,7 @@
   left: 0;
   right: 0;
   background-color: white;
+  z-index: 1;
 }
 
 .wrapper {
@@ -12,7 +13,6 @@
   display: flex;
   align-items: center;
   background-color: inherit;
-  z-index: 200;
   max-width: 1200px;
 }
 
@@ -37,8 +37,28 @@
   display: flex;
 }
 
-.func-item:last-child {
+.account {
   border-radius: 10px;
   border-left: 0.5px solid var(--grey-color);
   margin-left: 8px;
+}
+
+.account-menu {
+  list-style: none;
+  font-size: 1.4rem;
+  background-color: white;
+  border-radius: 18px;
+  padding: 10px;
+  min-width: 200px;
+  box-shadow: 0 0 10px 1px var(--hover-color);
+}
+
+.account-menu li {
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.account-menu li:hover {
+  background-color: var(--hover-color);
 }

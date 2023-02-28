@@ -1,10 +1,9 @@
 .wrapper {
-  position:absolute;
+  position: absolute;
   top: 0;
-  bottom: -2000px;
+  bottom: -20000px;
   left: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.53);
+  z-index: 1;
 }
-
-

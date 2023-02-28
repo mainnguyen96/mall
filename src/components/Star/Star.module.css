@@ -1,0 +1,21 @@
+.wrapper {
+  display: inline-block;
+  font-family: Times;
+  line-height: 1;
+}
+
+.wrapper::before {
+  content: "⭐";
+  font-size: 1.6rem;
+  --percent: calc((var(--rating) / 5) * 100%);
+  background: linear-gradient(
+    90deg,
+    white 14%,
+    rgb(253, 216, 54) 14%,
+    rgb(253, 216, 54) calc(var(--percent) * 0.72 + 14%),
+    #dddde3 calc(var(--percent) * 0.72 + 14%)
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

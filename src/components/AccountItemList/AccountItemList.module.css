@@ -1,6 +1,7 @@
 .wrapper {
   background-color: white;
   max-width: 250px;
+  min-width: 250px;
   border-radius: 18px;
   padding: 10px;
 }
@@ -33,6 +34,21 @@
 
 .item-list {
   list-style: none;
+  text-decoration: none;
+}
+
+.item-link {
+  text-decoration: none;
+  display: block;
+  border-radius: 10px;
+}
+
+.item-link:hover {
+  background-color: var(--hover-grey);
+}
+
+.active {
+  background-color: var(--hover-grey);
 }
 
 .item {
@@ -43,11 +59,8 @@
   padding: 10px;
   margin: 5px 10px;
   cursor: pointer;
-  border-radius: 15px;
-}
-
-.item:hover {
-  background-color: var(--hover-grey);
+  text-decoration: none;
+  height: 40px;
 }
 
 .normal {

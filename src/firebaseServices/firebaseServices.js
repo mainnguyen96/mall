@@ -1,5 +1,12 @@
 import { initializeApp } from "firebase/app";
 import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  getAuth,
+  setPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
+import {
   getDatabase,
   ref,
   query,
@@ -55,16 +62,50 @@ export const searchData = async (path, child, filterValue) => {
     ref(firebaseDB, path),
     orderByChild(child),
     startAt(`%${filterValue}%`),
-    endAt(filterValue )
+    endAt(filterValue)
   );
 
-  let snapshot = await get(queryStart)
+  let snapshot = await get(queryStart);
   if (snapshot.val()) {
-    returnData = snapshot.val()
+    returnData = snapshot.val();
   } else {
-    snapshot = await get(queryMiddle)
-    returnData = snapshot.val()
+    snapshot = await get(queryMiddle);
+    returnData = snapshot.val();
   }
 
-  return Object.values(returnData)
+  return Object.values(returnData);
 };
+
+export const emailSignup = async (auth, email, password) => {
+  let user;
+  let error;
+  await createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      user = userCredential.user;
+    })
+    .catch((err) => {
+      error = err;
+    });
+  if (error) {
+    throw error.code;
+  }
+  return user;
+};
+
+export const emailLogin = async (auth, email, password) => {
+  let user;
+  let error;
+  await signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      user = userCredential.user;
+    })
+    .catch((err) => {
+      error = err;
+    });
+  if (error) {
+    throw error.code;
+  }
+  return user;
+};
+
+export { getAuth, setPersistence, browserLocalPersistence };

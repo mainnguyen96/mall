@@ -1,0 +1,66 @@
+.wrapper {
+  position: relative;
+  background-color: white;
+  z-index: 300;
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 18px;
+}
+
+.header {
+  font-size: 2rem;
+  font-weight: 500;
+  text-align: center;
+  margin: 20px;
+}
+
+.desc {
+  font-size: 1.4rem;
+}
+
+.form {
+}
+
+.list-item {
+  list-style: none;
+  font-size: 1.4rem;
+}
+
+.radio {
+  margin: 14px 10px;
+}
+
+.radio-btn {
+  margin: 0 20px;
+  height: 22px;
+  width: 22px;
+  /* accent-color: var(--primary-color); */
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+.another {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.select {
+  display: flex;
+}
+
+.item {
+}
+
+.item-label {
+  width: 100px;
+}
+
+.submit {
+  margin: 20px 0 10px 0;
+  display: flex;
+  justify-content: center;
+}

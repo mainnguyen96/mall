@@ -6,6 +6,7 @@
   position: fixed;
   top: 110px;
   left: 10px;
+  z-index: 1;
 }
 
 .content {
@@ -16,4 +17,26 @@
   position: fixed;
   bottom: 50px;
   right: 10px;
+}
+
+.auth {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 3;
+}
+
+.form {
+  margin: 200px auto;
+}
+
+.delivery {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 3;
 }

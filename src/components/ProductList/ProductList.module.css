@@ -9,6 +9,7 @@
   flex-wrap: wrap;
   list-style: none;
   justify-content: center;
+  z-index: 0;
 }
 
 .item {

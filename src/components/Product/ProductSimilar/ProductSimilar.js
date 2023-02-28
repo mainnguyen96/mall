@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import classNames from "classnames/bind";
 
 import { getData } from "~/firebaseServices/firebaseServices";
-import styles from "./ProductSimilar.module.css";
-import ProductItem from "~/components/ProductList/ProductItem";
 import NavButton from "~/components/NavButton";
+import ProductItem from "~/components/ProductList/ProductItem";
+import styles from "./ProductSimilar.module.css";
 
 const cx = classNames.bind(styles);
 

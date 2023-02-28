@@ -1,18 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-
+import { Form, Formik } from "formik";
 import classNames from "classnames/bind";
 
-import { getData } from "~/firebaseServices/firebaseServices";
-import TemplePage from "../TemplePage";
-import SidebarFilterItem from "~/components/SideBar/SidebarFilterItem";
-import ProductList from "~/components/ProductList";
-import Modal from "~/components/Modal";
-import SideBar from "~/components/SideBar";
-import styles from "./Categories.module.css";
-import SideBarItem from "~/components/SideBar/SideBarItem";
-import SidebarFilter from "~/components/SideBar/SidebarFilter";
 import {
   fetchCateProducts,
   fetchFilterProducts,
@@ -20,9 +11,15 @@ import {
   selectAllProducts,
   selectFilterSidebar,
 } from "~/features/cateProductsSlice";
+import TemplePage from "../TemplePage";
+import SidebarFilterItem from "~/components/SideBar/SidebarFilterItem";
+import ProductList from "~/components/ProductList";
+import Modal from "~/components/Modal";
+import SideBar from "~/components/SideBar";
+import styles from "./Categories.module.css";
+import SidebarFilter from "~/components/SideBar/SidebarFilter";
 import Loading from "~/components/Loading";
 import NotFound from "~/components/NotFound";
-import { Form, Formik } from "formik";
 
 const cx = classNames.bind(styles);
 
@@ -66,7 +63,7 @@ function Categories() {
           }}
           onSubmit={(values) => {
             console.log(values);
-            dispatch(fetchFilterProducts({cate: params.path, ...values}))
+            dispatch(fetchFilterProducts({ cate: params.path, ...values }));
           }}
           className={cx("filter-item")}
         >

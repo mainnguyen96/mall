@@ -1,20 +1,18 @@
 import { useState, useEffect } from "react";
-import classNames from "classnames/bind";
 import { useSelector, useDispatch } from "react-redux";
+import classNames from "classnames/bind";
 
-import { getData } from "~/firebaseServices/firebaseServices";
+import { getData } from "~/firebaseServices";
+import { selectAllProducts, fetchProducts } from "~/features/productsSlice";
 import TemplePage from "../TemplePage";
 import ProductList from "~/components/ProductList";
 import ProductCate from "~/components/ProductCate";
 import SideBar from "~/components/SideBar";
 import Modal from "~/components/Modal";
 import SideBarItem from "~/components/SideBar/SideBarItem";
-import { selectAllProducts, fetchProducts } from "~/features/productsSlice";
-import store from "~/features/store";
 import Loading from "~/components/Loading";
-import styles from "./Home.module.css";
 import NotFound from "~/components/NotFound";
-import Star from "~/components/Star";
+import styles from "./Home.module.css";
 
 const cx = classNames.bind(styles);
 
@@ -50,7 +48,6 @@ function Home() {
   } else {
     productsElement = <NotFound />;
   }
-
 
   return (
     <TemplePage handleShowSideBar={handleShowSideBar}>

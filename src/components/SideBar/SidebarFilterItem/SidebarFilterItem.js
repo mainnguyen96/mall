@@ -1,5 +1,5 @@
+import { Field } from "formik";
 import classNames from "classnames/bind";
-import { Field, Formik } from "formik";
 
 import styles from "./SidebarFilterItem.module.css";
 
@@ -13,7 +13,12 @@ function SidebarFilterItem({ filter, label }) {
       <div className={cx("form")}>
         {filter.map((data) => (
           <label key={data.label} className={cx("item")}>
-            <Field id={`${label}:${data.filter}`} name={`${label}:${data.filter}`} type="checkbox" className={cx("checkbox")} />
+            <Field
+              id={`${label}:${data.filter}`}
+              name={`${label}:${data.filter}`}
+              type="checkbox"
+              className={cx("checkbox")}
+            />
             {data.label}
           </label>
         ))}

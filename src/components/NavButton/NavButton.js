@@ -1,5 +1,5 @@
-import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 
 import styles from "./NavButton.module.css";

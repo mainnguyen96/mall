@@ -1,14 +1,6 @@
 import { useState } from "react";
-import classNames from "classnames/bind";
 import { Formik, Form } from "formik";
 import Tippy from "@tippyjs/react";
-
-import Button from "~/components/Button";
-import RadioForm from "~/components/Form/RadioForm";
-import SelectForm from "~/components/Form/SelectForm/SelectForm";
-import TextForm from "~/components/Form/TextForm/TextForm";
-import styles from "./AccountInfo.module.css";
-
 import {
   faEnvelope,
   faFileArrowUp,
@@ -18,10 +10,16 @@ import {
   faShieldHalved,
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
-import AccountItem from "~/components/AccountItemList/AccountItem";
 import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import UpdateForm from "../UpdateForm/UpdateForm";
+import classNames from "classnames/bind";
+
 import AccountPage from "../AccountPage/AccountPage";
+import Button from "~/components/Button";
+import AccountItem from "~/components/AccountItemList/AccountItem";
+import RadioForm from "~/components/Form/RadioForm";
+import SelectForm from "~/components/Form/SelectForm/SelectForm";
+import TextForm from "~/components/Form/TextForm/TextForm";
+import styles from "./AccountInfo.module.css";
 
 const cx = classNames.bind(styles);
 const birthYear = [];
@@ -240,7 +238,6 @@ function AccountInfo() {
             </ul>
           </section>
         </div>
-        {/* <UpdateForm label={"Phone number"} icon={faPhone} /> */}
       </div>
     </AccountPage>
   );

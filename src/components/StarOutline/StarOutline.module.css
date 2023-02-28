@@ -1,0 +1,21 @@
+.wrapper {
+}
+
+.wrapper svg {
+  display: block;
+}
+
+.large svg {
+  height: 40px;
+  width: 40px;
+}
+
+.medium svg {
+  height: 30px;
+  width: 30px;
+}
+
+.small svg {
+  height: 20px;
+  width: 20px;
+}

@@ -21,15 +21,15 @@
   font-size: 1.2rem;
   padding-top: 6px;
   display: flex;
-cursor: pointer;
+  cursor: pointer;
 }
 
 .item:hover {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .checkbox {
-    margin-right: 10px;
-    width: 16px;
-    height: 16px;
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
 }

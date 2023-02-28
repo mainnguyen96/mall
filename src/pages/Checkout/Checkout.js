@@ -1,13 +1,13 @@
-import classNames from "classnames/bind";
-import logo from "~/assets/images/logo.png";
-
-import styles from "./Checkout.module.css";
-import Location from "~/components/Location";
-import Promotion from "~/components/Promotion";
-import Bill from "~/components/Cart/Bill";
 import { Formik, Form, Field } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTruck } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames/bind";
+
+import logo from "~/assets/images/logo.png";
+import Location from "~/components/Location";
+import Promotion from "~/components/Promotion";
+import Bill from "~/components/Cart/Bill";
+import styles from "./Checkout.module.css";
 
 const cx = classNames.bind(styles);
 const deliveryMethod = ["Giao hang nhanh", "Giao hang tiet kiem"];

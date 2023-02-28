@@ -1,7 +1,7 @@
-import classNames from "classnames/bind";
 import Tippy from "@tippyjs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo, faReceipt } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames/bind";
 
 import Button from "../Button";
 import styles from "./Promotion.module.css";

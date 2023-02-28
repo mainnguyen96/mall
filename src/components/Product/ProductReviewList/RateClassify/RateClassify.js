@@ -1,5 +1,5 @@
-import classNames from "classnames/bind";
 import StarBar from "../StarBar/StarBar";
+import classNames from "classnames/bind";
 
 import styles from "./RateClassify.module.css";
 
@@ -12,7 +12,7 @@ function RateClassify() {
         <li key={item} className={cx("item")}>
           <StarBar size={"small"} rate={item} />
           <div className={cx("star-count")}>
-            <div className={cx('count')} style={{width: 100}}></div>
+            <div className={cx("count")} style={{ width: 100 }}></div>
           </div>
           <p className={cx("label")}>9</p>
         </li>

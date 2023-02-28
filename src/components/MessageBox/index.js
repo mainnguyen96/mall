@@ -1,3 +1,3 @@
 import MessageBox from "./MessageBox";
 
-export default MessageBox
+export default MessageBox;

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getData, searchData } from "~/firebaseServices/firebaseServices";
+
+import { getData, searchData } from "~/firebaseServices";
 
 const initState = {
   products: [],

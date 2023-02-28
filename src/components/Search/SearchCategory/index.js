@@ -1,3 +1,3 @@
 import SearchCategory from "./SearchCategory";
 
-export default SearchCategory
+export default SearchCategory;

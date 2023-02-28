@@ -1,11 +1,10 @@
 .form-wrapper {
-    position: relative;
+  position: relative;
   max-width: 800px;
   min-width: 400px;
   width: 800px;
   background-color: white;
-  /* position: fixed; */
-  z-index: 200;
+  z-index: 300;
   margin: auto;
   display: flex;
   border-radius: 18px;
@@ -13,17 +12,17 @@
 }
 
 .close-btn {
-    position: absolute;
-    right: -20px;
-    top: -20px;
-    height: 42px;
-    width: 42px;
-    border: none;
-    background-color: white;
-    border-radius: 50%;
-    font-size: 2.4rem;
-    color: var(--grey-color);
-    cursor: pointer;
+  position: absolute;
+  right: -20px;
+  top: -20px;
+  height: 42px;
+  width: 42px;
+  border: none;
+  background-color: white;
+  border-radius: 50%;
+  font-size: 2.4rem;
+  color: var(--grey-color);
+  cursor: pointer;
 }
 
 .form-content {

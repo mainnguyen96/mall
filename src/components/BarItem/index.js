@@ -1,3 +1,3 @@
 import BarItem from "./BarItem";
 
-export default BarItem
+export default BarItem;

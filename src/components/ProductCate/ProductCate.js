@@ -14,21 +14,6 @@ function ProductCate() {
         <li className={cx("cate-item")}>
           <ProductCateItem label={"For you"} icon={icon} />
         </li>
-        <li className={cx("cate-item")}>
-          <ProductCateItem label={"For you"} icon={icon} />
-        </li>
-        <li className={cx("cate-item")}>
-          <ProductCateItem label={"For you"} icon={icon} />
-        </li>
-        <li className={cx("cate-item")}>
-          <ProductCateItem label={"For you"} icon={icon} />
-        </li>
-        <li className={cx("cate-item")}>
-          <ProductCateItem label={"For you"} icon={icon} />
-        </li>
-        <li className={cx("cate-item")}>
-          <ProductCateItem label={"For you"} icon={icon} />
-        </li>
       </ul>
     </div>
   );

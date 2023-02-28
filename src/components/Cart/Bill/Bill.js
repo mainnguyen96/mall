@@ -1,9 +1,5 @@
 import classNames from "classnames/bind";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo, faReceipt } from "@fortawesome/free-solid-svg-icons";
 
-import Promotion from "~/components/Promotion";
-import Location from "~/components/Location";
 import Button from "~/components/Button";
 import styles from "./Bill.module.css";
 

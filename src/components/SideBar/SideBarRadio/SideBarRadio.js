@@ -1,6 +1,6 @@
-import classNames from "classnames/bind";
 import { useRef } from "react";
 import { useField } from "formik";
+import classNames from "classnames/bind";
 
 import StarBar from "~/components/Product/ProductReviewList/StarBar/StarBar";
 import styles from "./SideBarRadio.module.css";

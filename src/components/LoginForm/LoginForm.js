@@ -6,10 +6,10 @@ import styles from "./LoginForm.module.css";
 
 const cx = classNames.bind(styles);
 
-function LoginForm({form}) {
+function LoginForm({ form, onClose }) {
   return (
     <div className={cx("form-wrapper")}>
-      <button className={cx("close-btn")}>
+      <button onClick={onClose} className={cx("close-btn")}>
         <FontAwesomeIcon icon={faXmark} />
       </button>
       {form}

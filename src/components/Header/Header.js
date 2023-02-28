@@ -1,6 +1,6 @@
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import classNames from "classnames/bind";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import Tippy from "@tippyjs/react";
 import {
   faBell,
   faCartShopping,
@@ -8,21 +8,63 @@ import {
   faUserCircle,
   faGlobe,
 } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames/bind";
 
-import logo from "~/assets/images/logo.png";
-import BarItem from "../BarItem";
+import { signOut, getAuth } from "firebase/auth";
+import { selectAuth } from "~/features/authSlice";
 import { fetchProducts } from "~/features/productsSlice";
+import BarItem from "../BarItem";
 import Search from "../Search";
 import config from "../../config";
+import logo from "~/assets/images/logo.png";
 import styles from "./Header.module.css";
 
 const cx = classNames.bind(styles);
 
-function Header() {
+const mainMenu = [
+  { label: "Notify", path: "/user/notice", icon: faBell },
+  { label: "English", path: "", icon: faGlobe },
+  { label: "Cart", path: "/cart", icon: faCartShopping },
+  { label: "Account", path: "", icon: faUserCircle },
+];
+
+const accountMenu = [
+  { label: "Account Information", path: "/user/account" },
+  { label: "My Orders", path: "/user/order" },
+  { label: "Log out", path: "logout" },
+];
+
+function Header({ onAuthClick, onDeliveryClick }) {
   const dispatch = useDispatch();
+  const auth = useSelector(selectAuth);
+  const navigate = useNavigate();
   const reloadProduct = () => {
     dispatch(fetchProducts());
   };
+  const handleMenuClick = (path) => {
+    if (path) {
+      navigate(path);
+    }
+  };
+  const handleAccountMenuClick = (menu) => {
+    if (menu === "logout") {
+      const auth = getAuth();
+      signOut(auth).then(() => {
+        window.location.reload();
+      });
+    } else {
+      navigate(menu);
+    }
+  };
+  const AccountMenu = (
+    <ul className={cx("account-menu")}>
+      {accountMenu.map((menu, index) => (
+        <li onClick={() => handleAccountMenuClick(menu.path)} key={index}>
+          {menu.label}
+        </li>
+      ))}
+    </ul>
+  );
   return (
     <div className={cx("background")}>
       <header className={cx("wrapper")}>
@@ -31,24 +73,39 @@ function Header() {
         </Link>
         <div className={cx("search")}>
           <Search />
-          {/* <SearchCategory /> */}
         </div>
         <div className={cx("nav")}>
           <ul className={cx("function")}>
-            <li className={cx("func-item")}>
-              <BarItem label={"Notify"} icon={faBell} />
-            </li>
-            <li className={cx("func-item")}>
-              <BarItem label={"English"} icon={faGlobe} />
-            </li>
-            <li className={cx("func-item")}>
-              <BarItem label={"Cart"} icon={faCartShopping} />
-            </li>
-            <li className={cx("func-item")}>
-              <BarItem label={"Account"} icon={faUserCircle} />
-            </li>
+            {mainMenu.map((menu, index) =>
+              menu.label !== "Account" ? (
+                <li
+                  onClick={() => handleMenuClick(menu.path)}
+                  key={index}
+                  className={cx("func-item")}
+                >
+                  <BarItem label={menu.label} icon={menu.icon} />
+                </li>
+              ) : (
+                <Tippy
+                  key={index}
+                  content={auth.auth ? AccountMenu : null}
+                  interactive={true}
+                >
+                  <li
+                    onClick={!auth.auth ? onAuthClick : null}
+                    className={cx("func-item", "account")}
+                  >
+                    <BarItem
+                      label={auth.auth ? auth.userName : menu.label}
+                      icon={menu.icon}
+                    />
+                  </li>
+                </Tippy>
+              )
+            )}
           </ul>
           <BarItem
+            onClick={onDeliveryClick}
             type={"grey"}
             label={"Deliver to"}
             location={"Viet Nam"}

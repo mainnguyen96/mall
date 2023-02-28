@@ -1,16 +1,16 @@
 .label {
-    font-size: 1.4rem;
-    max-width: 390px;
+  font-size: 1.4rem;
+  max-width: 390px;
 }
 
 .input {
-    margin:10px 20px;
-    outline: none;
-    border: 1px solid var(--line-color);
-    border-radius: 8px;
-    padding: 10px;
+  margin: 10px 20px;
+  outline: none;
+  border: 1px solid var(--line-color);
+  border-radius: 8px;
+  padding: 10px;
 }
 
 .input:focus {
-    border-color: var(--primary-color);
+  border-color: var(--primary-color);
 }

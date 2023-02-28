@@ -1,7 +1,7 @@
-import classNames from "classnames/bind";
 import { Formik } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames/bind";
 
 import Button from "~/components/Button";
 import styles from "./Password.module.css";

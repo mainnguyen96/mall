@@ -1,12 +1,8 @@
-import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import classNames from "classnames/bind";
 
-import { getData } from "~/firebaseServices/firebaseServices";
-import LoginForm from "~/components/LoginForm";
-import Login from "~/components/LoginForm/Login/Login";
-import Password from "~/components/LoginForm/Password";
-import Verify from "~/components/LoginForm/Verify";
+import { getData } from "~/firebaseServices";
 import ProductDesc from "~/components/Product/ProductDesc";
 import ProductDetail from "~/components/Product/ProductDetail";
 import ProductInfo from "~/components/Product/ProductInfo";
@@ -19,7 +15,6 @@ function Product() {
   const params = useParams();
   useEffect(() => {
     getData(`products/${params.productId}`).then((data) => {
-      console.log(data);
       setProductData(data);
     });
   }, []);
@@ -34,11 +29,17 @@ function Product() {
             sold={productData.sold}
             price={productData.price}
             imgs={productData.img}
+            star={productData.star}
           />
           <ProductSimilar />
           <ProductDetail details={productData.detail} />
           <ProductDesc desc={productData.description} />
-          <ProductReviewList />
+          <div id="review-list">
+            <ProductReviewList
+              rate={productData.star}
+              review={productData.review}
+            />
+          </div>
         </>
       )}
     </TemplePage>

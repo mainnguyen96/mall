@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faThumbsUp } from "@fortawesome/fontawesome-free-regular";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 
-import styles from "./Review.module.css";
 import StarBar from "../StarBar/StarBar";
 import Button from "~/components/Button";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import styles from "./Review.module.css";
 
 const cx = classNames.bind(styles);
 
@@ -19,10 +19,10 @@ const image = [
 ];
 
 function Review() {
-  const [writeComment, setWriteComment] = useState(false)
+  const [writeComment, setWriteComment] = useState(false);
   const handleCreateCmt = () => {
-    setWriteComment(true)
-  }
+    setWriteComment(true);
+  };
   const Comment = (
     <div className={cx("comment")}>
       <img
@@ -48,7 +48,11 @@ function Review() {
         alt="comment avatar"
         className={cx("comment-avatar")}
       />
-      <input type={"text"} className={cx("comment-input")}placeholder={'Write the answer'}/>
+      <input
+        type={"text"}
+        className={cx("comment-input")}
+        placeholder={"Write the answer"}
+      />
       <FontAwesomeIcon className={cx("comment-sent")} icon={faPaperPlane} />
     </div>
   );
@@ -102,7 +106,11 @@ function Review() {
         <p className={cx("review-time")}>Review in 4 months </p>
         <div className={cx("action-btns")}>
           <Button icon={faThumbsUp} styles={"outline"} label={"Useful(25)"} />
-          <Button onClick={handleCreateCmt} styles={"non-outline"} label={"Comment"} />
+          <Button
+            onClick={handleCreateCmt}
+            styles={"non-outline"}
+            label={"Comment"}
+          />
           <Button styles={"non-outline"} label={"Share"} />
         </div>
         <ul className={cx("comment-list")}>

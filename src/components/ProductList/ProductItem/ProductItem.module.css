@@ -30,6 +30,7 @@
 
 .desc {
   overflow: hidden;
+  color: black;
   height: 40px;
   text-overflow: clip;
   display: -webkit-box;
@@ -47,11 +48,6 @@
 .rating {
 }
 
-.rating-start {
-  color: rgb(253, 216, 54);
-  margin-left: 4px;
-}
-
 .sold {
 }
 
@@ -64,7 +60,4 @@
 .price {
   font-size: 1.5rem;
   font-weight: 600;
-}
-
-.descrease {
 }

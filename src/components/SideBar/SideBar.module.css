@@ -9,6 +9,7 @@
   border-radius: 18px;
   transition: transform 0.2s ease-in;
   overflow-y: scroll;
+  z-index: 2;
 }
 
 .wrapper::-webkit-scrollbar {

@@ -1,9 +1,9 @@
 .wrapper {
-    max-width: 1200px;
-    padding: 50px;
-    margin: auto;
+  max-width: 1200px;
+  padding: 50px;
+  margin: auto;
 }
 
 .image {
-    max-width: 100%;
+  max-width: 100%;
 }

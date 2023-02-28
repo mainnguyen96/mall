@@ -1,5 +1,5 @@
-import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import classNames from "classnames/bind";
 
 import Badge from "../Badge";
 import styles from "./WidgetButton.module.css";

@@ -16,6 +16,7 @@
     "axios": "^1.2.2",
     "classnames": "^2.3.2",
     "firebase": "^9.15.0",
+    "font-awesome": "^4.7.0",
     "formik": "^2.2.9",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -23,7 +24,8 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.0",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^1.0.0"
   },
   "scripts": {
     "start": "react-app-rewired start",

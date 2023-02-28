@@ -1,3 +1,3 @@
 import Verify from "./Verify";
 
-export default Verify
+export default Verify;

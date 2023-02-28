@@ -1,17 +1,17 @@
 import { useRef, useState } from "react";
-import classNames from "classnames/bind";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
-import { fetchProducts } from "~/features/productsSlice";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { Formik, Form } from "formik";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames/bind";
 
-import styles from "./Search.module.css";
+import { fetchProducts } from "~/features/productsSlice";
 import SearchList from "./SearchList/SearchList";
-import { Formik, Form, Field } from "formik";
-import config from "../../config";
 import Modal from "../Modal";
+import config from "../../config";
+import styles from "./Search.module.css";
 
 const cx = classNames.bind(styles);
 
@@ -34,7 +34,7 @@ function Search() {
               state: values,
             });
             dispatch(fetchProducts(values.search));
-            setShowList(false)
+            setShowList(false);
           }}
         >
           {(formik) => (

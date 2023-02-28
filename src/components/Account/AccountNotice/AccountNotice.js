@@ -1,4 +1,3 @@
-import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClipboardList,
@@ -7,6 +6,7 @@ import {
   faGift,
   faHouse,
 } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames/bind";
 
 import AccountPage from "../AccountPage/AccountPage";
 import styles from "./AccountNotice.module.css";

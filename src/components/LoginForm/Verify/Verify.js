@@ -1,8 +1,8 @@
+import { useRef } from "react";
+import { Formik } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
-import { Formik } from "formik";
-import { useRef } from "react";
 
 import Button from "~/components/Button";
 import styles from "./Verify.module.css";
@@ -22,9 +22,9 @@ function Verify() {
     console.log("keydown:", [e.target.value]);
     // console.log(document.activeElement)
     if (e.target.value) {
-      if (codeRef[codeRef.length-1].current === document.activeElement) {
-        codeRef[codeRef.length-1].current.blur()
-        console.log('blur')
+      if (codeRef[codeRef.length - 1].current === document.activeElement) {
+        codeRef[codeRef.length - 1].current.blur();
+        console.log("blur");
       }
       for (let i = 0; i < codeRef.length - 1; i++) {
         if (codeRef[i].current === document.activeElement) {
@@ -40,7 +40,6 @@ function Verify() {
         }
       }
     }
-    
   };
   return (
     <div className={cx("form-content")}>
@@ -77,7 +76,7 @@ function Verify() {
                   />
                 ))}
             </div>
-            <Button label={'Verification'} type={'submit'}/>
+            <Button label={"Verification"} type={"submit"} />
           </form>
         )}
       </Formik>

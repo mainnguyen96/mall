@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { ref, onValue, query } from "firebase/database";
 import classNames from "classnames/bind";
 
-import { firebaseDB } from "~/firebaseServices/firebaseServices";
+import { getData } from "~/firebaseServices/firebaseServices";
 import FooterSection from "./FooterSection";
 import styles from "./Footer.module.css";
 
@@ -11,10 +10,7 @@ const cx = classNames.bind(styles);
 function Footer() {
   const [footerType, setFooterType] = useState();
   useEffect(() => {
-    const footerType = query(ref(firebaseDB, "footer/footerType"));
-
-    onValue(footerType, (snapshot) => {
-      const data = snapshot.val();
+    getData("footer/footerType").then((data) => {
       setFooterType(Object.values(data));
     });
   }, []);

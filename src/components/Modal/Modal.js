@@ -4,7 +4,7 @@ import styles from "./Modal.module.css";
 
 const cx = classNames.bind(styles);
 
-function Modal({onClick}) {
+function Modal({ onClick }) {
   return <div onClick={onClick} className={cx("wrapper")}></div>;
 }
 

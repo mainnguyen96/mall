@@ -1,8 +1,8 @@
-import classNames from "classnames/bind";
-import Tippy from "@tippyjs/react";
 import { Formik, Form, Field } from "formik";
-import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import Tippy from "@tippyjs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames/bind";
 
 import CartProduct from "../CartProduct";
 import styles from "./CartInfo.module.css";

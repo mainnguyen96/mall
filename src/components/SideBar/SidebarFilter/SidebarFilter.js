@@ -1,12 +1,8 @@
+import { Field } from "formik";
 import classNames from "classnames/bind";
-import { useRef } from "react";
-import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
 
-import StarBar from "~/components/Product/ProductReviewList/StarBar/StarBar";
-import styles from "./SidebarFilter.module.css";
-import { Formik, Form, Field } from "formik";
 import SideBarRadio from "../SideBarRadio";
+import styles from "./SidebarFilter.module.css";
 
 const cx = classNames.bind(styles);
 

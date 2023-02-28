@@ -1,7 +1,7 @@
-import classNames from "classnames/bind";
 import { Formik, Form, Field } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames/bind";
 
 import Button from "~/components/Button";
 import styles from "./UpdateForm.module.css";

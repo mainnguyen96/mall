@@ -1,10 +1,9 @@
-import { useSelector, useDispatch } from "react-redux";
-import classNames from "classnames/bind";
+import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames/bind";
 
 import { fetchProducts } from "~/features/productsSlice";
-import SearchItem from "./SearchItem";
 import styles from "./SearchList.module.css";
 
 const cx = classNames.bind(styles);

@@ -1,48 +1,47 @@
 .wrapper {
-    position: relative;
-    margin: 20px auto 0;
-    padding: 10px 0;
-    background-color: white;
-    overflow: hidden;
-    border-radius: 18px;
-    max-width: 1200px;
+  position: relative;
+  margin: 20px auto 0;
+  padding: 10px 0;
+  background-color: white;
+  overflow: hidden;
+  border-radius: 18px;
+  max-width: 1200px;
 }
 
 .label {
-    font-size: 2rem;
-    font-weight: 400;
-    margin-left: 20px;
+  font-size: 2rem;
+  font-weight: 400;
+  margin-left: 20px;
 }
 
 .list {
-    list-style: none;
-    display: flex;
-    overflow-x: scroll;
-    scroll-behavior: smooth;
-    animation-delay: 2s;
+  list-style: none;
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  animation-delay: 2s;
 }
 
 .item {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .item:first-child {
-    margin-left: 3px;
+  margin-left: 3px;
 }
 
 .left-btn {
-    position: absolute;
-    left: 10px;
-    top: 120px;
+  position: absolute;
+  left: 10px;
+  top: 120px;
 }
 
 .right-btn {
-    position: absolute;
-    right: 10px;
-    top: 120px;
+  position: absolute;
+  right: 10px;
+  top: 120px;
 }
 
 .list::-webkit-scrollbar {
-    display: none;
-  }
-
+  display: none;
+}

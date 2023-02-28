@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import classNames from "classnames/bind";
 
-import itemIcon from "~/assets/images/itemIcon.png";
 import BarItem from "../../BarItem";
 import styles from "./SideBarItem.module.css";
 
