@@ -30,6 +30,7 @@ function Product() {
             price={productData.price}
             imgs={productData.img}
             star={productData.star}
+            productId={productData.id}
           />
           <ProductSimilar />
           <ProductDetail details={productData.detail} />

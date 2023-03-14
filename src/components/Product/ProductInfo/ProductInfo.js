@@ -4,16 +4,27 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 
+import { updateCartData } from "~/firebaseServices/firebaseServices";
 import { authNeedSet, selectAuth } from "~/features/authSlice";
 import ImageShow from "./ImageShow";
 import Ship from "./Ship";
 import Button from "../../Button";
 import Star from "~/components/Star";
 import styles from "./ProductInfo.module.css";
+import { setShowCartTippy } from "~/features/productsSlice";
 
 const cx = classNames.bind(styles);
 
-function ProductInfo({ name, brand, review, sold, price, imgs, star }) {
+function ProductInfo({
+  name,
+  brand,
+  review,
+  sold,
+  price,
+  imgs,
+  star,
+  productId,
+}) {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   const auth = useSelector(selectAuth);
@@ -37,6 +48,8 @@ function ProductInfo({ name, brand, review, sold, price, imgs, star }) {
   };
   const handleBuyClick = () => {
     if (auth.auth) {
+      updateCartData(auth.userId, productId, quantity);
+      dispatch(setShowCartTippy(true));
     } else {
       dispatch(authNeedSet(true));
     }

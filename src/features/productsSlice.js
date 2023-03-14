@@ -6,6 +6,7 @@ const initState = {
   products: [],
   status: "idle",
   error: null,
+  showCartTippy: false,
 };
 
 export const fetchProducts = createAsyncThunk(
@@ -27,11 +28,14 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
-
 const productsSlice = createSlice({
   name: "products",
   initialState: initState,
-  reducers: {},
+  reducers: {
+    setShowCartTippy(state, action) {
+      state.showCartTippy = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchProducts.pending, (state, action) => {
@@ -49,4 +53,6 @@ const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
+export const { setShowCartTippy } = productsSlice.actions;
 export const selectAllProducts = (state) => state.products.products;
+export const selectShowCartTippy = (state) => state.products.showCartTippy;

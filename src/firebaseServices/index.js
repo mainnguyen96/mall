@@ -1,5 +1,4 @@
 export {
-  firebaseDB,
   getData,
   searchData,
   emailSignup,
@@ -7,4 +6,9 @@ export {
   getAuth,
   setPersistence,
   browserLocalPersistence,
+  setUserData,
+  updateUserData,
+  updateCartData,
+  updatePurchaseData,
+  onAuthStateChanged,
 } from "./firebaseServices";

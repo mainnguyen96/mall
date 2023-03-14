@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faCommentDots } from "@fortawesome/fontawesome-free-regular";
 import classNames from "classnames/bind";
 
-import { useDispatch, useSelector } from "react-redux";
 import { authNeedSet, selectNeedAuth } from "~/features/authSlice";
 import Footer from "~/components/Footer";
 import Header from "~/components/Header";
@@ -42,7 +42,7 @@ function TemplePage({ children, handleShowSideBar, showSidebar = true }) {
         <div className={cx("delivery")}>
           <Modal />
           <div className={cx("form")}>
-            <Delivery />
+            <Delivery onClose={() => setShowDeliveryForm(false)} />
           </div>
         </div>
       )}

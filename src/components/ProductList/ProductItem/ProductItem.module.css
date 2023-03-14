@@ -54,7 +54,7 @@
 .cost {
   display: flex;
   justify-content: space-between;
-  color: #ff424e;
+  color: var(--red-color);
 }
 
 .price {

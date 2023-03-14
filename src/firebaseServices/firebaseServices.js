@@ -1,3 +1,4 @@
+import { nanoid } from "@reduxjs/toolkit";
 import { initializeApp } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
@@ -5,6 +6,7 @@ import {
   getAuth,
   setPersistence,
   browserLocalPersistence,
+  onAuthStateChanged,
 } from "firebase/auth";
 import {
   getDatabase,
@@ -15,6 +17,8 @@ import {
   get,
   startAt,
   endAt,
+  set,
+  update,
 } from "firebase/database";
 
 const firebaseConfig = {
@@ -31,9 +35,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-export const firebaseDB = getDatabase(app);
+const firebaseDB = getDatabase(app);
+
 export const getData = async (path, child, filterValue) => {
   let queryData;
+
   if (child) {
     queryData = query(
       ref(firebaseDB, path),
@@ -76,6 +82,46 @@ export const searchData = async (path, child, filterValue) => {
   return Object.values(returnData);
 };
 
+export const setUserData = (userId, name, email, imageUrl) => {
+  set(ref(firebaseDB, "users/" + userId), {
+    username: name,
+    email: email,
+    profile_picture: imageUrl,
+  });
+};
+
+export const updateUserData = (userId, path, dataId, data) => {
+  const updates = {};
+  updates[`users/${userId}/${path}${dataId ? "/" + dataId : ""}`] = data;
+  update(ref(firebaseDB), updates);
+};
+
+export const updateCartData = async (userId, productId, count) => {
+  const updates = {};
+  updates["carts/" + userId + "/" + productId] = {
+    count: count,
+    time: new Date(),
+  };
+  update(ref(firebaseDB), updates);
+};
+
+export const updatePurchaseData = async (userId, purchaseId, data) => {
+  const updates = {};
+  updates["purchases/" + userId + "/" + purchaseId] = { ...data };
+  update(ref(firebaseDB), updates);
+};
+
+export const updateReview = async (userId, productId, data) => {
+  const updates = {};
+  const reviewId = nanoid();
+  const time = new Date();
+  updates["reviews/" + productId + "/" + userId + "/" + reviewId] = {
+    ...data,
+    time,
+  };
+  update(ref(firebaseDB), updates);
+};
+
 export const emailSignup = async (auth, email, password) => {
   let user;
   let error;
@@ -108,4 +154,4 @@ export const emailLogin = async (auth, email, password) => {
   return user;
 };
 
-export { getAuth, setPersistence, browserLocalPersistence };
+export { getAuth, setPersistence, browserLocalPersistence, onAuthStateChanged };

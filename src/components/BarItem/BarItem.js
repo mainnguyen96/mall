@@ -12,11 +12,13 @@ function BarItem({ icon, label, type, location, onClick }) {
       <div className={cx("badge")}>
         <Badge />
       </div>
-      {typeof icon === "string" ? (
-        <img className={cx("imgIcon")} alt="icon" src={icon} />
-      ) : (
-        <FontAwesomeIcon icon={icon} className={cx("faIcon")} />
-      )}
+      {icon ? (
+        typeof icon === "string" ? (
+          <img className={cx("imgIcon")} alt="icon" src={icon} />
+        ) : (
+          <FontAwesomeIcon icon={icon} className={cx("faIcon")} />
+        )
+      ) : null}
 
       {label}
       {location && <span className={cx("location")}>{location}</span>}

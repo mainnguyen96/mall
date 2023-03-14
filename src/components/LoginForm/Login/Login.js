@@ -12,9 +12,12 @@ import {
   getAuth,
   setPersistence,
   browserLocalPersistence,
+  setUserData,
+  getData,
 } from "~/firebaseServices";
-import { authSet } from "~/features/authSlice";
+import { authSet, shippingLocationSet } from "~/features/authSlice";
 import Button from "~/components/Button";
+import { getLocationForUser } from "~/ultil";
 import styles from "./Login.module.css";
 
 const cx = classNames.bind(styles);
@@ -23,6 +26,7 @@ function Login({ onAuth }) {
   const [method, setMethod] = useState("Log in");
   const [authErr, setAuthErr] = useState(null);
   const dispatch = useDispatch();
+
   return (
     <div className={cx("form-content")}>
       <h2 className={cx("greeting")}>Hi,</h2>
@@ -51,6 +55,7 @@ function Login({ onAuth }) {
               .then((user) => {
                 console.log("user:", user);
                 const userName = user.displayName || user.email.split("@")[0];
+                setUserData(user.uid, userName, user.email, user.photoURL);
                 dispatch(
                   authSet({
                     auth: user.accessToken,
@@ -76,9 +81,13 @@ function Login({ onAuth }) {
                   })
                 );
                 onAuth();
+                return getLocationForUser(user.uid);
               })
               .catch((error) => {
                 setAuthErr(error);
+              })
+              .then((locationData) => {
+                dispatch(shippingLocationSet(locationData));
               });
           }
         }}

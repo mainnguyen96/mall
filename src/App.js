@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import { getAuth } from "~/firebaseServices";
-import { authSet } from "./features/authSlice";
+import { getAuth, onAuthStateChanged } from "~/firebaseServices";
+import { getLocationForUser } from "./ultil";
+import { authSet, shippingLocationSet } from "./features/authSlice";
 import { publicRoutes, privateRoutes } from "./pages/routes";
 
 function App() {
@@ -23,9 +22,12 @@ function App() {
             userName,
           })
         );
+        getLocationForUser(auth.currentUser.uid).then((locationData) => {
+          dispatch(shippingLocationSet(locationData));
+        });
       }
     });
-  }, []);
+  }, [dispatch]);
   return (
     <BrowserRouter>
       <div className="App">

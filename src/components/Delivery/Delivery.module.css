@@ -8,6 +8,15 @@
   border-radius: 18px;
 }
 
+.close {
+  position: absolute;
+  font-size: 2rem;
+  color: var(--grey-color);
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+}
+
 .header {
   font-size: 2rem;
   font-weight: 500;

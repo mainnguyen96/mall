@@ -2,7 +2,7 @@
   font-size: 2rem;
   padding: 12px;
   border: none;
-  min-width: 260px;
+  min-width: 200px;
   width: inherit;
   color: white;
   background-color: rgb(255, 66, 78);
@@ -29,7 +29,7 @@
   color: var(--primary-color);
   font-weight: 600;
   min-width: 60px;
-  border-radius: 6px;
+  /* border-radius: 6px; */
 }
 
 .non-outline {
@@ -48,6 +48,7 @@
 }
 
 .small {
+  font-size: 1.4rem;
   font-weight: 400;
   padding: 6px;
   height: 30px;

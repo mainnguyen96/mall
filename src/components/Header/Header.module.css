@@ -62,3 +62,35 @@
 .account-menu li:hover {
   background-color: var(--hover-color);
 }
+
+.cart-tippy {
+  position: relative;
+  background-color: white;
+  box-shadow: 0 0 10px 1px var(--hover-color);
+  max-width: 280px;
+  padding: 10px 20px;
+  border-radius: 18px;
+}
+
+.cart-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2rem;
+  color: var(--grey-color);
+  cursor: pointer;
+}
+
+.cart-label {
+  display: flex;
+  font-size: 1.3rem;
+  padding: 10px 0;
+  align-items: center;
+}
+
+.cart-check {
+  font-size: 1.8rem;
+  margin-right: 10px;
+  color: #079449;
+}
+

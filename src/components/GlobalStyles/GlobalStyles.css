@@ -8,6 +8,7 @@
   --hover-grey: rgba(39, 39, 42, 0.12);
   --input-placeholder: #999999;
   --line-color: rgb(221, 221, 227);
+  --red-color: rgb(255, 59, 39);
 }
 
 * {
@@ -29,9 +30,8 @@ body {
   background-color: #f5f5fa;
 }
 
-
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover,

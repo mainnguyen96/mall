@@ -1,6 +1,16 @@
 .wrapper {
+  position: relative;
+}
+
+.delivery-form {
+  position: absolute;
+  width: 100%;
+}
+
+.form {
 
 }
+
 
 .header-background {
   background-color: white;
@@ -57,11 +67,13 @@
 .delivery-item {
   font-size: 1.4rem;
   padding: 10px 0;
+  cursor: pointer;
 }
 
 .delivery-item label {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .delivery-radio {

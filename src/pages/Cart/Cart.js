@@ -1,9 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import classNames from "classnames/bind";
 
-import { selectAuth } from "~/features/authSlice";
+import { getAuth, onAuthStateChanged } from "~/firebaseServices";
 import TemplePage from "../TemplePage";
 import Bill from "~/components/Cart/Bill";
 import Location from "~/components/Location";
@@ -15,23 +14,44 @@ import styles from "./Cart.module.css";
 const cx = classNames.bind(styles);
 
 function Cart() {
-  const auth = useSelector(selectAuth);
+  const [purchaseProducts, setPurchaseProducts] = useState({
+    totalPrice: 0,
+    products: {},
+  });
   const navigate = useNavigate();
   useEffect(() => {
-    if (!auth.auth) {
-      navigate(routes.home);
-    }
-  });
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate(routes.home);
+      }
+    });
+  }, [navigate]);
+  const handleBuy = () => {
+    console.log("purchase:", purchaseProducts);
+    const purchase = Object.entries(purchaseProducts.products).filter(
+      ([id, count]) => count > 0
+    );
+    const totalPrice = purchaseProducts.totalPrice;
+    navigate(routes.checkout, {
+      state: { totalPrice, purchaseProducts: purchase },
+    });
+  };
   return (
     <TemplePage showSidebar={false}>
       <div className={cx("wrapper")}>
         <h2 className={cx("header")}>Products Cart</h2>
         <div className={cx("content")}>
-          <CartInfo />
+          <div className={cx("info")}>
+            <CartInfo setPurchaseProducts={setPurchaseProducts} />
+          </div>
           <div className={cx("billing")}>
             <Location />
             <Promotion />
-            <Bill />
+            <Bill
+              onBuyClick={handleBuy}
+              totalPrice={purchaseProducts.totalPrice}
+            />
           </div>
         </div>
       </div>

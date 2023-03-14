@@ -16,6 +16,10 @@
   display: flex;
 }
 
+.info {
+  flex-grow: 1;
+}
+
 .billing {
   max-width: 300px;
   padding-left: 10px;
