@@ -3,5 +3,7 @@ export {
   getShippingInfo,
   convertCurrency,
   timeCompare,
-  convertStringToDateFormat
+  convertStringToDateFormat,
+  getDistrictsFromProvince,
+  getWardsFromDistrict,
 } from "./ultil";

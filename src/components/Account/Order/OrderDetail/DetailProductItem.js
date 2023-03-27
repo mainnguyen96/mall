@@ -7,31 +7,31 @@ import { useEffect, useState } from "react";
 
 import Button from "~/components/Button";
 import Modal from "~/components/Modal";
-import { getData } from "~/firebaseServices";
 import { convertCurrency } from "~/ultil";
 import ReviewForm from "./ReviewForm";
 import styles from "./OrderDetail.module.css";
 import { useNavigate } from "react-router-dom";
-import { routes } from "~/config/routes";
+import { useDispatch, useSelector } from "react-redux";
+import { selectProductsById } from "~/features/productsSlice";
 
 const cx = classNames.bind(styles);
 
 function DetailProductItem({ product }) {
+  const [productId, count] = product;
   const [productData, setProductData] = useState();
   const [isShowReview, SetIsShowReview] = useState(false);
   const navigate = useNavigate();
+  const productInfo = useSelector(selectProductsById(productId));
   useEffect(() => {
-    getData("products/" + product.id).then((data) => {
-      setProductData({
-        name: data.name,
-        img: data.img[0],
-        price: convertCurrency(data.price),
-        total: convertCurrency(data.price * product.count),
-        count: product.count,
-        id: product.id,
-      });
+    setProductData({
+      name: productInfo.data.name,
+      img: productInfo.data.img[0],
+      price: convertCurrency(productInfo.data.price),
+      total: convertCurrency(productInfo.data.price * count),
+      count: count,
+      id: productInfo.id,
     });
-  }, [product]);
+  }, [productInfo, productId, count]);
 
   const handleRePurchase = (productId) => {
     navigate("/product/" + productId);

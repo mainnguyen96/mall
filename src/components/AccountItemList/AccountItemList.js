@@ -13,6 +13,9 @@ import classNames from "classnames/bind";
 
 import AccountItem from "./AccountItem";
 import styles from "./AccountItemList.module.css";
+import AccountImage from "../Image/AccountImage";
+import { useSelector } from "react-redux";
+import { selectAuth } from "~/features/authSlice";
 
 const cx = classNames.bind(styles);
 const menu = [
@@ -59,17 +62,18 @@ const menu = [
 ];
 
 function AccountItemList() {
+  const auth = useSelector(selectAuth);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("header")}>
-        <img
-          src="https://lh5.googleusercontent.com/-BGbVNgJFryw/AAAAAAAAAAI/AAAAAAAAAjk/C2iOlUOhQfA/photo.jpg"
+        <AccountImage
+          src={auth.userImage}
           alt="account avatar"
           className={cx("avatar")}
         />
         <div className={cx("name")}>
           <p>Account of</p>
-          <h4>Duc Chinh Nguyen</h4>
+          <h4>{auth.userName}</h4>
         </div>
       </div>
       <ul className={cx("item-list")}>

@@ -1,0 +1,6 @@
+.wrapper {
+}
+
+.wrapper::-webkit-scrollbar {
+  display: none;
+}

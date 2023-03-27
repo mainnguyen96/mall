@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
+import { useSelector } from "react-redux";
 import classNames from "classnames/bind";
 
-import { getData } from "~/firebaseServices/firebaseServices";
+import { selectAllProducts } from "~/features/cateProductsSlice";
 import NavButton from "~/components/NavButton";
 import ProductItem from "~/components/ProductList/ProductItem";
 import styles from "./ProductSimilar.module.css";
@@ -9,13 +10,8 @@ import styles from "./ProductSimilar.module.css";
 const cx = classNames.bind(styles);
 
 function ProductSimilar() {
-  const [products, setProducts] = useState();
+  const products = useSelector(selectAllProducts);
   const listRef = useRef(null);
-  useEffect(() => {
-    getData("products").then((data) => {
-      setProducts(Object.values(data));
-    });
-  }, []);
   const handleMove = (type) => {
     if (type === "right") {
       listRef.current.scrollLeft += 200;
@@ -23,6 +19,7 @@ function ProductSimilar() {
       listRef.current.scrollLeft -= 200;
     }
   };
+
   return (
     <div className={cx("wrapper")}>
       <h3 className={cx("label")}>Similar Product</h3>
@@ -31,12 +28,12 @@ function ProductSimilar() {
           products.map((product) => (
             <li key={product.id} className={cx("item")}>
               <ProductItem
-                img={product.img}
-                name={product.name}
-                star={product.star}
-                sold={product.sold}
-                discount={product.discount}
-                price={product.price}
+                img={product.data.img}
+                name={product.data.name}
+                star={product.data.star}
+                sold={product.data.sold}
+                discount={product.data.discount}
+                price={product.data.price}
               />
             </li>
           ))}

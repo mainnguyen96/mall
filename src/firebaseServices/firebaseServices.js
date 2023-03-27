@@ -19,6 +19,8 @@ import {
   endAt,
   set,
   update,
+  remove,
+  onValue,
 } from "firebase/database";
 
 const firebaseConfig = {
@@ -103,6 +105,18 @@ export const updateCartData = async (userId, productId, count) => {
     time: new Date(),
   };
   update(ref(firebaseDB), updates);
+};
+
+export const deleteCartData = async (userId, productId) => {
+  remove(ref(firebaseDB, "carts/" + userId + "/" + productId));
+};
+
+export const getCartData = async (userId) => {
+  onValue(ref(firebaseDB, "carts/" + userId), (snapshot) => {
+    const data = snapshot.val();
+    console.log("carts:", data);
+    return data;
+  });
 };
 
 export const updatePurchaseData = async (userId, purchaseId, data) => {

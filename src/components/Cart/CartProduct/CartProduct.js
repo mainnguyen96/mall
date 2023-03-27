@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useField, Field } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 
-import styles from "./CartProduct.module.css";
-import { getData } from "~/firebaseServices";
-import { useSelector } from "react-redux";
+import { deleteCartData } from "~/firebaseServices";
 import { selectAuth } from "~/features/authSlice";
+import { selectProductsById } from "~/features/productsSlice";
+import styles from "./CartProduct.module.css";
 
 const cx = classNames.bind(styles);
 
@@ -15,32 +16,33 @@ function CartProduct({
   productId,
   count,
   setPurchaseProducts,
+  setReload,
   selected,
   ...props
 }) {
   const [quantity, setQuantity] = useState(count);
   const [productInfo, setProductInfo] = useState();
-  const [field, meta] = useField(props);
+  const productData = useSelector(selectProductsById(productId));
   const auth = useSelector(selectAuth);
+  const [field, meta] = useField(props);
 
   useEffect(() => {
-    getData("products/" + productId).then((data) => {
-      setProductInfo({
-        name: data.name,
-        priceFormat: new Intl.NumberFormat("vi-VN", {
-          style: "currency",
-          currency: "VND",
-        }).format(data.price),
-        price: data.price,
-        img: data.img[0],
-        totalFormat: new Intl.NumberFormat("vi-VN", {
-          style: "currency",
-          currency: "VND",
-        }).format(data.price * count),
-        total: data.price * count,
-      });
+    setProductInfo({
+      name: productData.data.name,
+      priceFormat: new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(productData.data.price),
+      price: productData.data.price,
+      img: productData.data.img[0],
+      totalFormat: new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(productData.data.price * count),
+      total: productData.data.price * count,
     });
-  }, [count, productId]);
+  }, [productData, count]);
+
   useEffect(() => {
     if (selected) {
       setPurchaseProducts((prev) => ({
@@ -62,7 +64,7 @@ function CartProduct({
         }
       });
     }
-  }, [selected]);
+  }, [selected, count, productId, productInfo, setPurchaseProducts]);
 
   useEffect(() => {
     setProductInfo((prev) => ({
@@ -74,6 +76,7 @@ function CartProduct({
       }).format(prev?.price * quantity),
     }));
   }, [quantity]);
+
   const handleSetQuantity = (action) => {
     if (action === "add") {
       selected &&
@@ -114,43 +117,59 @@ function CartProduct({
       });
     }
   };
+
+  const handleRemoveProduct = () => {
+    deleteCartData(auth.userId, productId);
+    setReload(false);
+  };
+
   return (
-    <div className={cx("wrapper")}>
+    <tr className={cx("wrapper")}>
       {productInfo && (
         <>
-          <Field
-            {...field}
-            {...props}
-            type="checkbox"
-            className={cx("checkbox")}
-          />
-          <div className={cx("product")}>
-            <img
-              className={cx("product-img")}
-              src={productInfo.img}
-              alt="product"
+          <td className={cx("product-td")}>
+            <Field
+              {...field}
+              {...props}
+              type="checkbox"
+              className={cx("checkbox")}
             />
-            <p className={cx("product-name")}>{productInfo.name}</p>
-          </div>
-          <h4 className={cx("price")}>{productInfo.priceFormat}</h4>
-          <div className={cx("quantity")}>
+            <div className={cx("product")}>
+              <img
+                className={cx("product-img")}
+                src={productInfo.img}
+                alt="product"
+              />
+              <p className={cx("product-name")}>{productInfo.name}</p>
+            </div>
+          </td>
+          <td className={cx("right")}>{productInfo.priceFormat}</td>
+          <td className={cx("quantity-td")}>
+            <div className={cx("quantity")}>
+              <FontAwesomeIcon
+                onClick={() => handleSetQuantity("sub")}
+                className={cx("quantity-icon")}
+                icon={faMinus}
+              />
+              <label className={cx("quantity-label")}>{quantity}</label>
+              <FontAwesomeIcon
+                onClick={() => handleSetQuantity("add")}
+                className={cx("quantity-icon")}
+                icon={faPlus}
+              />
+            </div>
+          </td>
+          <td className={cx("money", "right")}>{productInfo.totalFormat}</td>
+          <td>
             <FontAwesomeIcon
-              onClick={() => handleSetQuantity("sub")}
-              className={cx("quantity-icon")}
-              icon={faMinus}
+              onClick={handleRemoveProduct}
+              icon={faTrashCan}
+              className={cx("icon")}
             />
-            <label className={cx("quantity-label")}>{quantity}</label>
-            <FontAwesomeIcon
-              onClick={() => handleSetQuantity("add")}
-              className={cx("quantity-icon")}
-              icon={faPlus}
-            />
-          </div>
-          <h4 className={cx("money")}>{productInfo.totalFormat}</h4>
-          <FontAwesomeIcon icon={faTrashCan} className={cx("icon")} />
+          </td>
         </>
       )}
-    </div>
+    </tr>
   );
 }
 

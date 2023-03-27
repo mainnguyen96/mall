@@ -13,9 +13,15 @@ const initState = {
 export const fetchCateProducts = createAsyncThunk(
   "cateProducts/fetchCateProducts",
   async (cate) => {
-    let response;
+    let response = [];
     await getData("products", "category", cate).then((data) => {
-      response = Object.values(data);
+      console.log("data:", data);
+      for (let id in data) {
+        response.push({
+          id: id,
+          data: data[id],
+        });
+      }
     });
     return response;
   }
@@ -24,9 +30,14 @@ export const fetchCateProducts = createAsyncThunk(
 export const fetchFilterSidebar = createAsyncThunk(
   "cateProducts/fetchFilterSidebar",
   async (cate) => {
-    let response;
+    let response = [];
     await getData("filterSidebar", "category", cate).then((data) => {
-      response = Object.values(data);
+      for (let id in data) {
+        response.push({
+          id: id,
+          data: data[id],
+        });
+      }
     });
     return response;
   }
@@ -35,38 +46,36 @@ export const fetchFilterSidebar = createAsyncThunk(
 export const fetchFilterProducts = createAsyncThunk(
   "cateProducts/fetchFilterProducts",
   async ({ cate, ...filters }) => {
-    console.log('run')
-    console.log('filter:', Object.entries(filters))
-    let filterData = []
+    console.log("run");
+    console.log("filter:", Object.entries(filters));
+    let filterData = [];
     let response;
     let products;
     for (let filter in filters) {
       if (filters[filter]) {
-        if (filter.includes(':')) {
-          let [key, value] = filter.split(':')
-          filterData.push({ [key] : value})
+        if (filter.includes(":")) {
+          let [key, value] = filter.split(":");
+          filterData.push({ [key]: value });
         } else {
-          filterData.push({filter: filters[filter]})
+          filterData.push({ filter: filters[filter] });
         }
       }
     }
 
-    console.log('filerData:', Object.entries(filterData[0]))
+    console.log("filerData:", Object.entries(filterData[0]));
     await getData("products", "category", cate).then((data) => {
       products = Object.values(data);
     });
-    response = products.filter(
-      (product) => {
-        let ret = true
-        filterData.forEach(filter => {
-          console.log('...:', Object.entries(filter))
-          let [[key, value]] = Object.entries(filter)
-          console.log('key:', key)
-          ret = ret && product[key] == value
-        })
-        return ret
-      }
-    );
+    response = products.filter((product) => {
+      let ret = true;
+      filterData.forEach((filter) => {
+        console.log("...:", Object.entries(filter));
+        let [[key, value]] = Object.entries(filter);
+        console.log("key:", key);
+        ret = ret && product[key] == value;
+      });
+      return ret;
+    });
     console.log("products:", products);
     return response;
   }
@@ -76,14 +85,13 @@ const cateProductsSlice = createSlice({
   name: "cateProducts",
   initialState: initState,
   reducers: {
-    filterChanged: { 
+    filterChanged: {
       reducer(state, action) {
-        state.filterData = [...state.filterData, action.payload]
+        state.filterData = [...state.filterData, action.payload];
       },
       prepare(filters) {
-        console.log("filters:", filters);
         return {
-          payload: {...filters},
+          payload: { ...filters },
         };
       },
     },
@@ -118,7 +126,7 @@ const cateProductsSlice = createSlice({
   },
 });
 
-export default cateProductsSlice.reducer;
 export const { filterChanged } = cateProductsSlice.actions;
 export const selectAllProducts = (state) => state.cateProducts.products;
 export const selectFilterSidebar = (state) => state.cateProducts.filterSiderbar;
+export default cateProductsSlice.reducer;

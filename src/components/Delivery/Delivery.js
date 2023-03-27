@@ -1,20 +1,29 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { nanoid } from "@reduxjs/toolkit";
 import { Formik, Form, Field } from "formik";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 
+import { updateUserData } from "~/firebaseServices";
+import { getDistrictsFromProvince, getWardsFromDistrict } from "~/ultil";
+import {
+  fetchUserLocations,
+  selectAuth,
+  selectUserLocation,
+  selectUserLocations,
+} from "~/features/authSlice";
+import {
+  fetchLocations,
+  selectShippingLocations,
+} from "~/features/shippingSlice";
 import Button from "../Button";
 import SelectForm from "../Form/SelectForm";
 import styles from "./Delivery.module.css";
-import { useEffect, useState } from "react";
-import { getData, updateUserData } from "~/firebaseServices";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
-import { selectAuth, selectUserLocation } from "~/features/authSlice";
-import { nanoid } from "@reduxjs/toolkit";
 
 const cx = classNames.bind(styles);
 
-const deliveryData = ["Da Nang", "Quang Ngai", "Choose another delivery area"];
 const anotherData = [
   { label: "Province/City", id: "province" },
   { label: "District", id: "district" },
@@ -22,76 +31,38 @@ const anotherData = [
 ];
 
 function Delivery({ onClose }) {
-  const [userLocations, setUserLocations] = useState();
-  const [locations, setLocations] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
   const [chooseLocation, setChooseLocation] = useState(false);
+  const userLocations = useSelector(selectUserLocations);
+  const locations = useSelector(selectShippingLocations);
+  const fetchLocationsStatus = useSelector(
+    (state) => state.shipping.statusLocations
+  );
   const currentUserLocation = useSelector(selectUserLocation);
-
   const auth = useSelector(selectAuth);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getData("shippingPrice/vietnam").then((data) => {
-      const locationData = [];
-      for (let key in data) {
-        locationData.push({
-          id: key,
-          label: data[key].label,
-          districts: data[key].districts,
-        });
-      }
-      setLocations([
-        { label: "select province", id: "select province" },
-        ...locationData,
-      ]);
-    });
-  }, []);
+    dispatch(fetchLocations());
+  }, [dispatch]);
+
   useEffect(() => {
-    const userData = [];
-    getData("users/" + auth.userId + "/" + "locations").then((data) => {
-      if (locations != "" && data) {
-        for (let key in data) {
-          const [provinceData] = locations?.filter(
-            (province) => province.id == data[key].province
-          );
-          const districtData = provinceData.districts[data[key].district];
-          const wardData = districtData.wards[data[key].ward];
-          userData.push({
-            label: `${wardData.label}, ${districtData.label}, ${provinceData.label}`,
-            id: key,
-          });
-        }
-        setUserLocations(userData);
-      }
-    });
-  }, [auth.userId, locations]);
+    if (fetchLocationsStatus === "succeeded") {
+      dispatch(fetchUserLocations());
+    }
+  }, [dispatch, fetchLocationsStatus]);
 
   const getDistricts = (provinceId) => {
-    const districtsData = [];
-    const [data] = locations.filter((province) => province.id == provinceId);
-    for (let key in data.districts) {
-      districtsData.push({
-        id: key,
-        label: data.districts[key].label,
-        wards: data.districts[key].wards,
-      });
-    }
-    setDistricts([
-      { label: "select district", id: "select distric" },
-      ...districtsData,
-    ]);
+    const districtsData = getDistrictsFromProvince(locations, provinceId);
+    setDistricts(districtsData);
   };
+
   const getWards = (districtId) => {
-    const wardsData = [];
-    const [data] = districts.filter((district) => district.id == districtId);
-    for (let key in data.wards) {
-      wardsData.push({
-        id: key,
-        label: data.wards[key].label,
-      });
-    }
-    setWards([{ label: "select ward", id: "select ward" }, ...wardsData]);
+    const wardsData = getWardsFromDistrict(districts, districtId);
+    setWards(wardsData);
   };
+
   return (
     <div className={cx("wrapper")}>
       <FontAwesomeIcon

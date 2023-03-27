@@ -51,6 +51,10 @@
   background-color: var(--hover-grey);
 }
 
+.active > .item {
+  color: var(--primary-color);
+}
+
 .item {
   font-size: 1.3rem;
   color: var(--grey-color);

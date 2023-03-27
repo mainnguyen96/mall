@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import { Form, Formik } from "formik";
 import classNames from "classnames/bind";
 
@@ -16,29 +16,30 @@ import SidebarFilterItem from "~/components/SideBar/SidebarFilterItem";
 import ProductList from "~/components/ProductList";
 import Modal from "~/components/Modal";
 import SideBar from "~/components/SideBar";
-import styles from "./Categories.module.css";
 import SidebarFilter from "~/components/SideBar/SidebarFilter";
 import Loading from "~/components/Loading";
 import NotFound from "~/components/NotFound";
+import styles from "./Categories.module.css";
 
 const cx = classNames.bind(styles);
 
 function Categories() {
-  const dispatch = useDispatch();
+  const [showSideBar, setShowSideBar] = useState(false);
   const products = useSelector(selectAllProducts);
   const productsStatus = useSelector((state) => state.cateProducts.status);
   const filterSidebar = useSelector(selectFilterSidebar);
-  const [showSideBar, setShowSideBar] = useState(false);
+  const dispatch = useDispatch();
   const params = useParams();
+
   useEffect(() => {
-    if (productsStatus === "idle") {
-      dispatch(fetchCateProducts(params.path));
-    }
+    dispatch(fetchCateProducts(params.path));
     dispatch(fetchFilterSidebar(params.path));
-  }, [dispatch, productsStatus, params.path]);
+  }, [dispatch, params.path]);
+
   const handleShowSideBar = (isShow) => {
     setShowSideBar(isShow);
   };
+
   let productsElement;
   if (productsStatus === "loading") {
     productsElement = <Loading />;
@@ -47,6 +48,7 @@ function Categories() {
   } else {
     productsElement = <NotFound />;
   }
+
   return (
     <TemplePage handleShowSideBar={handleShowSideBar}>
       {showSideBar && (
@@ -74,14 +76,13 @@ function Categories() {
                 minPrice={"minPrice"}
                 maxPrice={"maxPrice"}
               />
-              {filterSidebar &&
-                filterSidebar.map((filter) => (
-                  <SidebarFilterItem
-                    key={filter.criteria}
-                    filter={filter.filters}
-                    label={filter.name}
-                  />
-                ))}
+              {filterSidebar?.map((filter) => (
+                <SidebarFilterItem
+                  key={filter.data.criteria}
+                  filter={filter.data.filters}
+                  label={filter.data.name}
+                />
+              ))}
             </Form>
           )}
         </Formik>

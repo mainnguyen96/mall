@@ -42,7 +42,7 @@ const accountMenu = [
   { label: "Log out", path: "logout" },
 ];
 
-function Header({ onAuthClick, onDeliveryClick }) {
+const Header = ({ onAuthClick, onDeliveryClick }) => {
   const showCartTippy = useSelector(selectShowCartTippy);
   const dispatch = useDispatch();
   const auth = useSelector(selectAuth);
@@ -51,11 +51,13 @@ function Header({ onAuthClick, onDeliveryClick }) {
   const reloadProduct = () => {
     dispatch(fetchProducts());
   };
+
   const handleMenuClick = (path) => {
     if (path) {
       navigate(path);
     }
   };
+
   const handleAccountMenuClick = (menu) => {
     if (menu === "logout") {
       const auth = getAuth();
@@ -66,6 +68,15 @@ function Header({ onAuthClick, onDeliveryClick }) {
       navigate(menu);
     }
   };
+
+  const handleDeliveryClick = () => {
+    if (auth.userId) {
+      onDeliveryClick();
+    } else {
+      onAuthClick();
+    }
+  };
+
   const AccountMenu = (
     <ul className={cx("account-menu")}>
       {accountMenu.map((menu, index) => (
@@ -75,6 +86,7 @@ function Header({ onAuthClick, onDeliveryClick }) {
       ))}
     </ul>
   );
+
   const AccountItem = ({ menu }) => (
     <Tippy content={auth.auth ? AccountMenu : null} interactive={true}>
       <li
@@ -88,6 +100,7 @@ function Header({ onAuthClick, onDeliveryClick }) {
       </li>
     </Tippy>
   );
+
   const CartTippy = () => {
     const handleViewClick = () => {
       dispatch(setShowCartTippy(false));
@@ -117,6 +130,7 @@ function Header({ onAuthClick, onDeliveryClick }) {
       );
     }
   };
+
   return (
     <div className={cx("background")}>
       <header className={cx("wrapper")}>
@@ -150,7 +164,7 @@ function Header({ onAuthClick, onDeliveryClick }) {
             )}
           </ul>
           <BarItem
-            onClick={onDeliveryClick}
+            onClick={handleDeliveryClick}
             type={"grey"}
             label={"Deliver to"}
             location={
@@ -162,6 +176,6 @@ function Header({ onAuthClick, onDeliveryClick }) {
       </header>
     </div>
   );
-}
+};
 
 export default Header;

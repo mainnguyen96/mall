@@ -12,15 +12,25 @@ const initState = {
 export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async (query) => {
-    let response;
+    let response = [];
     if (query) {
       let querySearch = query[0].toUpperCase() + query.slice(1);
       await searchData("products", "name", querySearch).then((data) => {
-        response = Object.values(data);
+        for (let id in data) {
+          response.push({
+            id: id,
+            data: data[id],
+          });
+        }
       });
     } else {
       await getData("products").then((data) => {
-        response = Object.values(data);
+        for (let id in data) {
+          response.push({
+            id: id,
+            data: data[id],
+          });
+        }
       });
     }
 
@@ -52,7 +62,9 @@ const productsSlice = createSlice({
   },
 });
 
-export default productsSlice.reducer;
 export const { setShowCartTippy } = productsSlice.actions;
 export const selectAllProducts = (state) => state.products.products;
 export const selectShowCartTippy = (state) => state.products.showCartTippy;
+export const selectProductsById = (productId) => (state) =>
+  state.products.products.filter((product) => product.id === productId)[0];
+export default productsSlice.reducer;

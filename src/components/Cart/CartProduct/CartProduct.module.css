@@ -1,8 +1,18 @@
 .wrapper {
-  display: flex;
-  padding: 10px 20px;
-  align-items: center;
   font-size: 1.3rem;
+}
+
+.wrapper td {
+  padding: 5px;
+}
+
+.wrapper .right {
+  text-align: right;
+}
+
+.product-td {
+  display: flex;
+  align-items: center;
 }
 
 .checkbox {
@@ -27,23 +37,19 @@
   margin-left: 10px;
 }
 
-.price,
-.quantity,
-.money {
-  max-width: 150px;
-  width: 150px;
+.quantity-td {
   text-align: center;
 }
 
 .quantity {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
 }
 
 .quantity-icon {
   border: 1px solid var(--line-color);
   padding: 8px;
+  cursor: pointer;
 }
 
 .quantity-label {
@@ -60,4 +66,5 @@
   width: 18px;
   color: var(--grey-color);
   cursor: pointer;
+  padding-left: 5px;
 }

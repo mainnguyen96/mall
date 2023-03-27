@@ -47,7 +47,6 @@ function ReviewStar({ setReviewStar, reviewStar, ...props }) {
     setLabel(reviewLabel[index]);
     setRateLevel(rate);
   };
-  // console.log(fieldRef?.current.value);
   return (
     <div className={cx("review-level")}>
       <label className={cx("review-level-label")}>{label}</label>

@@ -7,25 +7,25 @@ import classNames from "classnames/bind";
 import CartProduct from "../CartProduct";
 import styles from "./CartInfo.module.css";
 import { useEffect, useState } from "react";
-import { getData } from "~/firebaseServices";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectAuth } from "~/features/authSlice";
-import { timeCompare } from "~/ultil";
+import { fetchCart, selectCartProducts } from "~/features/cartSlice";
 
 const cx = classNames.bind(styles);
 
 function CartInfo({ setPurchaseProducts }) {
-  const [products, setProducts] = useState();
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [isReload, SetIsReload] = useState();
   const auth = useSelector(selectAuth);
+  const products = useSelector(selectCartProducts);
+  const dispatch = useDispatch();
   useEffect(() => {
-    getData("carts/" + auth.userId).then((data) => {
-      setProducts(Object.entries(data));
-    });
-  }, [auth.userId]);
+    dispatch(fetchCart(auth.userId));
+    SetIsReload(true);
+  }, [auth.userId, isReload, dispatch]);
   const totalProducts = products?.length;
-  const totalProductsId = products?.map(([productId]) => productId);
-  
+  const totalProductsId = products?.map((product) => product.id);
+
   return (
     <div className={cx("wrapper")}>
       <Formik
@@ -38,56 +38,65 @@ function CartInfo({ setPurchaseProducts }) {
       >
         {(formik) => (
           <Form onChangeCapture={() => formik.handleSubmit()}>
-            <div className={cx("header")}>
-              <label className={cx("header-label")}>
-                <Field
-                  id="all"
-                  name="checked"
-                  value="all"
-                  type="checkbox"
-                  className={cx("checkbox")}
-                  onChange={(event) => {
-                    if (event.target.checked) {
-                      formik.setFieldValue("checked", [
-                        ...totalProductsId,
-                        "all",
-                      ]);
-                    } else {
-                      formik.setFieldValue("checked", []);
-                    }
-                  }}
-                />
-                All ({totalProducts} products)
-              </label>
-              <label className={cx("label")}>Unit price</label>
-              <label className={cx("label")}>Quantity</label>
-              <label className={cx("label")}>Money</label>
-              <Tippy
-                content={
-                  <p className={cx("icon-label")}>Delete selected items</p>
-                }
-                placement="bottom"
-              >
-                <FontAwesomeIcon
-                  icon={faTrashCan}
-                  className={cx("header-icon")}
-                />
-              </Tippy>
-            </div>
-            {products
-              ?.sort((a, b) => timeCompare(a[1].time, b[1].time))
-              .map(([productId, productInfo], index) => (
-                <CartProduct
-                  setPurchaseProducts={setPurchaseProducts}
-                  count={productInfo.count}
-                  key={index}
-                  productId={productId}
-                  id="checked"
-                  name="checked"
-                  value={productId}
-                  selected={selectedProducts.includes(`${productId}`)}
-                />
-              ))}
+            <table className={cx("cart-table")}>
+              <thead>
+                <tr>
+                  <th className={cx("left")}>
+                    <Field
+                      id="all"
+                      name="checked"
+                      value="all"
+                      type="checkbox"
+                      className={cx("checkbox")}
+                      onChange={(event) => {
+                        if (event.target.checked) {
+                          formik.setFieldValue("checked", [
+                            ...totalProductsId,
+                            "all",
+                          ]);
+                        } else {
+                          formik.setFieldValue("checked", []);
+                        }
+                      }}
+                    />
+                    All ({totalProducts} products)
+                  </th>
+                  <th className={cx("right")}>Unit price</th>
+                  <th>Quantity</th>
+                  <th className={cx("right")}>Money</th>
+                  <th>
+                    <Tippy
+                      content={
+                        <p className={cx("icon-label")}>
+                          Delete selected items
+                        </p>
+                      }
+                      placement="bottom"
+                    >
+                      <FontAwesomeIcon
+                        icon={faTrashCan}
+                        className={cx("header-icon")}
+                      />
+                    </Tippy>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((product, index) => (
+                  <CartProduct
+                    setReload={SetIsReload}
+                    setPurchaseProducts={setPurchaseProducts}
+                    count={product.data.count}
+                    key={index}
+                    productId={product.id}
+                    id="checked"
+                    name="checked"
+                    value={product.id}
+                    selected={selectedProducts.includes(`${product.id}`)}
+                  />
+                ))}
+              </tbody>
+            </table>
           </Form>
         )}
       </Formik>

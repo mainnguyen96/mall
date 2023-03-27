@@ -1,25 +1,27 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames/bind";
 
-import { getData } from "~/firebaseServices/firebaseServices";
+import { fetchFooterTypes, selectFooterTypes } from "~/features/footerSlice";
 import FooterSection from "./FooterSection";
 import styles from "./Footer.module.css";
 
 const cx = classNames.bind(styles);
 
 function Footer() {
-  const [footerType, setFooterType] = useState();
+  const footerTypes = useSelector(selectFooterTypes);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getData("footer/footerType").then((data) => {
-      setFooterType(Object.values(data));
-    });
-  }, []);
+    dispatch(fetchFooterTypes());
+  }, [dispatch]);
+
   return (
     <div className={cx("wrapper")}>
       <section className={cx("section")}>
-        {footerType &&
-          footerType.map((label) => (
-            <FooterSection key={label} label={label} />
+        {footerTypes &&
+          footerTypes.map((type) => (
+            <FooterSection key={type.type} label={type.type} />
           ))}
       </section>
 

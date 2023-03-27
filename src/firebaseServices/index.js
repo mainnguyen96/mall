@@ -9,6 +9,8 @@ export {
   setUserData,
   updateUserData,
   updateCartData,
+  deleteCartData,
+  getCartData,
   updatePurchaseData,
   onAuthStateChanged,
 } from "./firebaseServices";

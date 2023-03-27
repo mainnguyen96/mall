@@ -1,5 +1,7 @@
 import { async } from "@firebase/util";
 import { getData } from "~/firebaseServices";
+import { useSelector } from "react-redux";
+import { selectShippingLocations } from "~/features/shippingSlice";
 
 export const getLocationForUser = async (userId) => {
   const locationId = await getData(
@@ -94,4 +96,29 @@ export const convertStringToDateFormat = (string) => {
       return;
   }
   return day.join(" ");
+};
+
+export const getDistrictsFromProvince = (locations, provinceId) => {
+  const districtsData = [];
+  const [data] = locations.filter((province) => province.id == provinceId);
+  for (let key in data.districts) {
+    districtsData.push({
+      id: key,
+      label: data.districts[key].label,
+      wards: data.districts[key].wards,
+    });
+  }
+  return [{ label: "select district", id: "select distric" }, ...districtsData];
+};
+
+export const getWardsFromDistrict = (districts, districtId) => {
+  const wardsData = [];
+  const [data] = districts.filter((district) => district.id == districtId);
+  for (let key in data.wards) {
+    wardsData.push({
+      id: key,
+      label: data.wards[key].label,
+    });
+  }
+  return [{ label: "select ward", id: "select ward" }, ...wardsData];
 };

@@ -12,12 +12,12 @@ function ProductList({ products }) {
         {products.map((product) => (
           <li key={product.id} className={cx("item")}>
             <ProductItem
-              img={product.img}
-              name={product.name}
-              star={product.star}
-              sold={product.sold}
-              discount={product.discount}
-              price={product.price}
+              img={product.data.img}
+              name={product.data.name}
+              star={product.data.star}
+              sold={product.data.sold}
+              discount={product.data.discount}
+              price={product.data.price}
               productId={product.id}
             />
           </li>

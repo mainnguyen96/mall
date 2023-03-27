@@ -1,11 +1,14 @@
 .wrapper {
   max-width: 880px;
+  padding-left: 20px;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  padding: 10px 20px;
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-table thead {
   border-bottom: 2px solid var(--line-color);
 }
 
@@ -15,18 +18,17 @@
   margin-right: 20px;
 }
 
-.header-label {
+.cart-table th {
   font-size: 1.4rem;
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
+  padding: 20px 5px 20px 5px;
 }
 
-.label {
-  font-size: 1.4rem;
-  max-width: 150px;
-  width: 150px;
-  text-align: center;
+.cart-table .left {
+  text-align: left;
+}
+
+.cart-table .right {
+  text-align: right;
 }
 
 .header-icon {

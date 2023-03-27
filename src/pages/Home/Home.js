@@ -2,10 +2,8 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames/bind";
 
-import { getData } from "~/firebaseServices";
 import { selectAllProducts, fetchProducts } from "~/features/productsSlice";
 import TemplePage from "../TemplePage";
-import ProductList from "~/components/ProductList";
 import ProductCate from "~/components/ProductCate";
 import SideBar from "~/components/SideBar";
 import Modal from "~/components/Modal";
@@ -13,6 +11,12 @@ import SideBarItem from "~/components/SideBar/SideBarItem";
 import Loading from "~/components/Loading";
 import NotFound from "~/components/NotFound";
 import styles from "./Home.module.css";
+import ProductView from "~/components/ProductView/ProductView";
+import {
+  fetchCateData,
+  selectCategory,
+  selectOutStanding,
+} from "~/features/categorySlice";
 
 const cx = classNames.bind(styles);
 
@@ -20,22 +24,20 @@ function Home() {
   const dispatch = useDispatch();
   const products = useSelector(selectAllProducts);
   const productsStatus = useSelector((state) => state.products.status);
-  const [outstanding, setOutstanding] = useState(null);
-  const [category, setCategory] = useState(null);
+  const category = useSelector(selectCategory);
+  const outstanding = useSelector(selectOutStanding);
   const [showSideBar, setShowSideBar] = useState(false);
-
+  console.log("category:", category);
   useEffect(() => {
     if (productsStatus === "idle") {
       dispatch(fetchProducts());
     }
-
-    getData("category").then((data) => {
-      setCategory(data);
-    });
-    getData("outstanding").then((data) => {
-      setOutstanding(data);
-    });
   }, [productsStatus, dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchCateData());
+  }, [dispatch]);
+
   const handleShowSideBar = (isShow) => {
     setShowSideBar(isShow);
   };
@@ -44,7 +46,7 @@ function Home() {
   if (productsStatus === "loading") {
     productsElement = <Loading />;
   } else if (productsStatus === "succeeded") {
-    productsElement = <ProductList products={products} />;
+    productsElement = <ProductView products={products} />;
   } else {
     productsElement = <NotFound />;
   }

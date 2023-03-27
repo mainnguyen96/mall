@@ -1,101 +1,91 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { nanoid } from "@reduxjs/toolkit";
 import { Formik, Form, Field } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTruck } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 
+import { updatePurchaseData } from "~/firebaseServices";
 import {
-  getData,
-  updatePurchaseData,
-  getAuth,
-  onAuthStateChanged,
-} from "~/firebaseServices";
-import { selectUserLocation } from "~/features/authSlice";
+  fetchAuth,
+  selectAuth,
+  selectUserLocation,
+} from "~/features/authSlice";
+import {
+  fetchShippingMethods,
+  fetchShippingPrice,
+  selectCurrentShippingMethod,
+  selectCurrentShippingPrice,
+  selectShippingMethods,
+  setCurrentShippingMethod,
+} from "~/features/shippingSlice";
+import { convertCurrency } from "~/ultil";
 import { routes } from "~/config/routes";
 import logo from "~/assets/images/logo.png";
 import Location from "~/components/Location";
 import Promotion from "~/components/Promotion";
 import Bill from "~/components/Cart/Bill";
-import styles from "./Checkout.module.css";
 import CheckoutProduct from "./CheckoutProduct";
 import Modal from "~/components/Modal";
 import Delivery from "~/components/Delivery";
-import { useLocation, useNavigate } from "react-router-dom";
-import { nanoid } from "@reduxjs/toolkit";
-import { convertCurrency } from "~/ultil";
+import styles from "./Checkout.module.css";
 
 const cx = classNames.bind(styles);
 
 function Checkout() {
   const [products, setProducts] = useState();
   const [totalPrice, setTotalPrice] = useState(0);
-  const [deliveryMethod, setDeliveryMethod] = useState();
-  const [currentMethod, setCurrentMethod] = useState();
-  const [currentShippingPrice, setCurrentShippingPrice] = useState();
   const [showDeliveryForm, setShowDeliveryForm] = useState(false);
-  const auth = getAuth();
+  const shippingMethods = useSelector(selectShippingMethods);
+  const currentShippingMethod = useSelector(selectCurrentShippingMethod);
+  const currentShippingPrice = useSelector(selectCurrentShippingPrice);
+  const auth = useSelector(selectAuth);
   const currentUserLocation = useSelector(selectUserLocation);
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        navigate(routes.home);
-      }
-    });
-  }, [navigate, auth]);
+    dispatch(fetchAuth());
+    if (!auth.auth) {
+      navigate(routes.home);
+    }
+  }, [navigate, auth.auth, dispatch]);
+
   useEffect(() => {
-    getData("shippingMethod").then((data) => {
-      const retData = [];
-      for (let key in data) {
-        retData.push({
-          id: key,
-          label: data[key],
-        });
-      }
-      setCurrentMethod(retData[0]);
-      setDeliveryMethod(retData);
-    });
-  }, []);
+    dispatch(fetchShippingMethods());
+  }, [dispatch]);
+
   useEffect(() => {
-    getData(
-      "users/" + auth.currentUser.uid + "/" + "locations" + "/" + currentUserLocation?.id
-    )
-      .then((data) => {
-        return getData(
-          "shippingPrice/vietnam" +
-            "/" +
-            data.province +
-            "/districts/" +
-            data.district +
-            "/wards/" +
-            data.ward +
-            "/price"
-        );
+    dispatch(
+      fetchShippingPrice({
+        userId: auth.userId,
+        userLocationId: currentUserLocation?.id,
       })
-      .then((data) => {
-        setCurrentShippingPrice(data[currentMethod?.id]);
-      });
-  }, [currentMethod, auth.currentUser.uid, currentUserLocation]);
+    );
+  }, [dispatch, auth.userId, currentUserLocation, currentShippingMethod]);
+
   useEffect(() => {
     setProducts(location.state.purchaseProducts);
     setTotalPrice(location.state.totalPrice);
   }, [location]);
+
   const handlePurchaseClick = () => {
     const data = {};
     data.products = {};
     data.total = +totalPrice + +currentShippingPrice;
     data.time = new Date();
     data.location = currentUserLocation.id;
-    data.shippingMethod = currentMethod.id;
+    data.shippingMethod = currentShippingMethod.id;
     products.map(([id, count]) => {
       data.products[id] = count;
     });
     const purchaseId = nanoid();
     updatePurchaseData(auth.currentUser.uid, purchaseId, data);
   };
+
   return (
     <div className={cx("wrapper")}>
       {showDeliveryForm && (
@@ -116,22 +106,23 @@ function Checkout() {
         <div className={cx("info")}>
           <div className={cx("delivery")}>
             <h2 className={cx("delivery-label")}>Choose a delivery method</h2>
-            {deliveryMethod && (
+            {currentShippingMethod && (
               <Formik
-                initialValues={{ shippingMethod: currentMethod?.id }}
+                initialValues={{ shippingMethod: currentShippingMethod?.id }}
                 onSubmit={(values) => {
-                  console.log("values:", values);
                   const id = values.shippingMethod;
-                  const [label] = deliveryMethod.filter(
+                  const [label] = shippingMethods.filter(
                     (method) => method.id == id
                   );
-                  setCurrentMethod({ id: id, label: label.label });
+                  dispatch(
+                    setCurrentShippingMethod({ id: id, label: label.label })
+                  );
                 }}
               >
                 {(formik) => (
                   <Form onChangeCapture={() => formik.handleSubmit()}>
                     <ul className={cx("delivery-list")}>
-                      {deliveryMethod.map((method, index) => (
+                      {shippingMethods.map((method, index) => (
                         <li key={method.id} className={cx("delivery-item")}>
                           <label>
                             <Field
@@ -159,7 +150,9 @@ function Checkout() {
                 Package: Delivered on Thursday, February 23
               </p>
               <div className={cx("delivery-method")}>
-                <p className={cx("delivery-name")}>{currentMethod?.label}</p>
+                <p className={cx("delivery-name")}>
+                  {currentShippingMethod?.label}
+                </p>
                 <p className={cx("delivery-price")}>
                   {convertCurrency(currentShippingPrice)}
                 </p>

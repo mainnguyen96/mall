@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
 
-import { getAuth, onAuthStateChanged } from "~/firebaseServices";
+import { fetchAuth, selectAuth } from "~/features/authSlice";
 import TemplePage from "../TemplePage";
 import Bill from "~/components/Cart/Bill";
 import Location from "~/components/Location";
@@ -18,15 +19,17 @@ function Cart() {
     totalPrice: 0,
     products: {},
   });
+  const auth = useSelector(selectAuth);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        navigate(routes.home);
-      }
-    });
-  }, [navigate]);
+    dispatch(fetchAuth());
+    if (!auth.auth) {
+      navigate(routes.home);
+    }
+  }, [auth.auth, dispatch, navigate]);
+
   const handleBuy = () => {
     console.log("purchase:", purchaseProducts);
     const purchase = Object.entries(purchaseProducts.products).filter(
@@ -37,6 +40,7 @@ function Cart() {
       state: { totalPrice, purchaseProducts: purchase },
     });
   };
+
   return (
     <TemplePage showSidebar={false}>
       <div className={cx("wrapper")}>

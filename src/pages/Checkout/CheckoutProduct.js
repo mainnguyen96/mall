@@ -1,31 +1,30 @@
-import classNames from "classnames/bind";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import classNames from "classnames/bind";
 
-import { getData } from "~/firebaseServices";
+import { selectProductsById } from "~/features/productsSlice";
+import { convertCurrency } from "~/ultil";
 import styles from "./Checkout.module.css";
 
 const cx = classNames.bind(styles);
 
 function CheckoutProduct({ productId, count }) {
   const [productInfo, setProductInfo] = useState();
+  const product = useSelector(selectProductsById(productId));
+  const fetchProductsStatus = useSelector((state) => state.products.status);
+
   useEffect(() => {
-    getData("products/" + productId).then((data) => {
+    if (fetchProductsStatus === "succeeded") {
       setProductInfo({
-        name: data.name,
-        priceFormat: new Intl.NumberFormat("vi-VN", {
-          style: "currency",
-          currency: "VND",
-        }).format(data.price),
-        price: data.price,
-        img: data.img[0],
-        totalFormat: new Intl.NumberFormat("vi-VN", {
-          style: "currency",
-          currency: "VND",
-        }).format(data.price * count),
-        total: data.price * count,
+        name: product.data.name,
+        priceFormat: convertCurrency(product.data.price),
+        price: product.data.price,
+        img: product.data.img[0],
+        totalFormat: convertCurrency(product.data.price * count),
+        total: product.data.price * count,
       });
-    });
-  }, [count, productId]);
+    }
+  }, [product, fetchProductsStatus, count]);
 
   return (
     <div className={cx("product")}>

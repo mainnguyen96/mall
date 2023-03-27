@@ -17,6 +17,11 @@
   align-items: center;
 }
 
+.tippy-avatar {
+  height: fit-content;
+  width: fit-content;
+}
+
 .avatar {
   height: 104px;
   width: 104px;

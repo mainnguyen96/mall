@@ -12,12 +12,9 @@ import {
   getAuth,
   setPersistence,
   browserLocalPersistence,
-  setUserData,
-  getData,
 } from "~/firebaseServices";
-import { authSet, shippingLocationSet } from "~/features/authSlice";
+import { fetchAuth } from "~/features/authSlice";
 import Button from "~/components/Button";
-import { getLocationForUser } from "~/ultil";
 import styles from "./Login.module.css";
 
 const cx = classNames.bind(styles);
@@ -52,17 +49,8 @@ function Login({ onAuth }) {
           setPersistence(auth, browserLocalPersistence);
           if (method === "Sign up") {
             emailSignup(auth, values.email, values.password)
-              .then((user) => {
-                console.log("user:", user);
-                const userName = user.displayName || user.email.split("@")[0];
-                setUserData(user.uid, userName, user.email, user.photoURL);
-                dispatch(
-                  authSet({
-                    auth: user.accessToken,
-                    userId: user.uid,
-                    userName,
-                  })
-                );
+              .then(() => {
+                dispatch(fetchAuth(true));
                 onAuth();
               })
               .catch((error) => {
@@ -70,24 +58,12 @@ function Login({ onAuth }) {
               });
           } else if (method === "Log in") {
             emailLogin(auth, values.email, values.password)
-              .then((user) => {
-                console.log("user:", user);
-                const userName = user.displayName || user.email.split("@")[0];
-                dispatch(
-                  authSet({
-                    auth: user.accessToken,
-                    userId: user.uid,
-                    userName,
-                  })
-                );
+              .then(() => {
+                dispatch(fetchAuth());
                 onAuth();
-                return getLocationForUser(user.uid);
               })
               .catch((error) => {
                 setAuthErr(error);
-              })
-              .then((locationData) => {
-                dispatch(shippingLocationSet(locationData));
               });
           }
         }}

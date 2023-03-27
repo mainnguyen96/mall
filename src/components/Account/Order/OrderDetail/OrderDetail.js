@@ -1,13 +1,13 @@
 import classNames from "classnames/bind";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { selectAuth } from "~/features/authSlice";
-import { getData } from "~/firebaseServices";
+import {
+  fetchPurchaseDetail,
+  selectPurchaseDetail,
+} from "~/features/purchasesSlice";
 import {
   convertCurrency,
-  convertStringToDateFormat,
-  getShippingInfo,
 } from "~/ultil";
 import AccountPage from "../../AccountPage";
 import DetailProductItem from "./DetailProductItem";
@@ -17,42 +17,13 @@ import styles from "./OrderDetail.module.css";
 const cx = classNames.bind(styles);
 
 function OrderDetail() {
-  const [purchaseData, setPurchaseData] = useState();
+  const purchaseData = useSelector(selectPurchaseDetail);
   const location = useLocation();
-  const auth = useSelector(selectAuth);
+  const dispatch = useDispatch();
   const purchaseId = location.state.purchaseId;
   useEffect(() => {
-    const purchaseData = {};
-    getData("purchases/" + auth.userId + "/" + purchaseId)
-      .then((data) => {
-        purchaseData.products = [];
-        purchaseData.total = data.total;
-        purchaseData.totalFormat = convertCurrency(data.total);
-        purchaseData.time = convertStringToDateFormat(data.time);
-        for (let key in data.products) {
-          purchaseData.products.push({
-            id: key,
-            count: data.products[key],
-          });
-        }
-        return data;
-      })
-      .then((data) => {
-        return Promise.all([
-          getShippingInfo(auth.userId, data.location, data.shippingMethod),
-          getData("shippingMethod/" + data.shippingMethod),
-        ]);
-      })
-      .then((data) => {
-        purchaseData.location = data[0].location;
-        purchaseData.shippingFee = convertCurrency(data[0].fee);
-        purchaseData.shippingMethod = data[1];
-        purchaseData.provision = convertCurrency(
-          purchaseData.total - data[0].fee
-        );
-        setPurchaseData(purchaseData);
-      });
-  }, [location.state, auth.userId, purchaseId]);
+    dispatch(fetchPurchaseDetail(purchaseId));
+  }, [dispatch, purchaseId]);
   const DetailItem = ({ header, children }) => {
     return (
       <div className={cx("detail-item")}>
@@ -62,7 +33,6 @@ function OrderDetail() {
     );
   };
 
-  console.log("purcahse:", purchaseData);
   return (
     <AccountPage header={"Order Detail"}>
       <div className={cx("wrapper")}>
@@ -87,7 +57,7 @@ function OrderDetail() {
               Delivery on Friday, 9/10
             </p>
             <p className={cx("shipping-fee", "info")}>
-              Shipping fee: {purchaseData?.shippingFee}
+              Shipping fee: {convertCurrency(purchaseData?.shippingFee)}
             </p>
           </DetailItem>
           <DetailItem header={"payments"}>
@@ -115,16 +85,16 @@ function OrderDetail() {
             <tbody>
               <tr>
                 <th>Provisional</th>
-                <td>{purchaseData?.provision}</td>
+                <td>{convertCurrency(purchaseData?.provision)}</td>
               </tr>
               <tr>
                 <th>Shipping fee</th>
-                <td>{purchaseData?.shippingFee}</td>
+                <td>{convertCurrency(purchaseData?.shippingFee)}</td>
               </tr>
               <tr>
                 <th>Total</th>
                 <td className={cx("total-data")}>
-                  {purchaseData?.totalFormat}
+                  {convertCurrency(purchaseData?.total)}
                 </td>
               </tr>
             </tbody>
