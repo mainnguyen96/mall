@@ -13,7 +13,7 @@ import {
   setPersistence,
   browserLocalPersistence,
 } from "~/firebaseServices";
-import { fetchAuth } from "~/features/authSlice";
+import { fetchAuth, setUser } from "~/features/authSlice";
 import Button from "~/components/Button";
 import styles from "./Login.module.css";
 
@@ -49,16 +49,27 @@ function Login({ onAuth }) {
           setPersistence(auth, browserLocalPersistence);
           if (method === "Sign up") {
             emailSignup(auth, values.email, values.password)
-              .then(() => {
-                dispatch(fetchAuth(true));
+              .then((user) => {
+                console.log("sign up user:", user);
+                const userName = user.displayName || user.email.split("@")[0];
+                dispatch(
+                  setUser({
+                    auth: user.accessToken,
+                    userId: user.uid,
+                    name: userName,
+                    email: user.email,
+                    imgUrl: user.photoURL,
+                  })
+                );
                 onAuth();
               })
               .catch((error) => {
                 setAuthErr(error);
               });
           } else if (method === "Log in") {
+            console.log("log in");
             emailLogin(auth, values.email, values.password)
-              .then(() => {
+              .then((user) => {
                 dispatch(fetchAuth());
                 onAuth();
               })

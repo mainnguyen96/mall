@@ -1,32 +1,42 @@
-import { async } from "@firebase/util";
 import { getData } from "~/firebaseServices";
-import { useSelector } from "react-redux";
-import { selectShippingLocations } from "~/features/shippingSlice";
+const reader = new FileReader();
+
+export const reviewLabel = [
+  "Dissatisfaction",
+  "Unsatisfied",
+  "Normal",
+  "Satisfied",
+  "Extremely satisfied",
+];
 
 export const getLocationForUser = async (userId) => {
   const locationId = await getData(
     "users/" + userId + "/" + "shippingLocation"
   );
-  const location = await getData(
-    "users/" + userId + "/" + "locations" + "/" + locationId
-  );
-  const provinceData = await getData(
-    "shippingPrice/vietnam/" + location.province
-  );
-  const province = provinceData.label;
-  const districtData = provinceData.districts[location.district];
-  const district = districtData.label;
-  const wardData = districtData.wards[location.ward];
-  const ward = wardData.label;
-  const locationData = {
-    id: locationId,
-    label: `${ward}, ${district}, ${province}`,
-  };
-  return locationData;
+
+  if (locationId) {
+    const location = await getData(
+      "users/" + userId + "/" + "locations" + "/" + locationId
+    );
+    const provinceData = await getData(
+      "shippingPrice/vietnam/" + location?.province
+    );
+    const province = provinceData?.label;
+    const districtData = provinceData.districts[location.district];
+    const district = districtData.label;
+    const wardData = districtData.wards[location.ward];
+    const ward = wardData.label;
+    const locationData = {
+      id: locationId,
+      label: `${ward}, ${district}, ${province}`,
+    };
+    return locationData;
+  } else {
+    return;
+  }
 };
 
 export const getShippingInfo = async (userId, locationId, shippingMethodId) => {
-  console.log("locationId:", locationId);
   const location = await getData(
     "users/" + userId + "/" + "locations" + "/" + locationId
   );
@@ -121,4 +131,21 @@ export const getWardsFromDistrict = (districts, districtId) => {
     });
   }
   return [{ label: "select ward", id: "select ward" }, ...wardsData];
+};
+
+export const processImageForUpload = async (file) => {
+  reader.readAsDataURL(file);
+  return new Promise((resolve) => {
+    reader.onload = (e) => {
+      resolve(e.target.result);
+    };
+  });
+};
+
+export const getProductById = async (productId) => {
+  let product = await getData(`products/${productId}`);
+  return {
+    id: productId,
+    data: product,
+  };
 };

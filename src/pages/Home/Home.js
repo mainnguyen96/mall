@@ -27,7 +27,6 @@ function Home() {
   const category = useSelector(selectCategory);
   const outstanding = useSelector(selectOutStanding);
   const [showSideBar, setShowSideBar] = useState(false);
-  console.log("category:", category);
   useEffect(() => {
     if (productsStatus === "idle") {
       dispatch(fetchProducts());

@@ -2,7 +2,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames/bind";
 
-import { fetchFooterTypes, selectFooterTypes } from "~/features/footerSlice";
+import {
+  fetchFooterTypes,
+  selectFooterStatus,
+  selectFooterTypes,
+} from "~/features/footerSlice";
 import FooterSection from "./FooterSection";
 import styles from "./Footer.module.css";
 
@@ -10,11 +14,14 @@ const cx = classNames.bind(styles);
 
 function Footer() {
   const footerTypes = useSelector(selectFooterTypes);
+  const status = useSelector(selectFooterStatus);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchFooterTypes());
-  }, [dispatch]);
+    if (status === "idle") {
+      dispatch(fetchFooterTypes());
+    }
+  }, [dispatch, status]);
 
   return (
     <div className={cx("wrapper")}>

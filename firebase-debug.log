@@ -1,0 +1,61 @@
+[debug] [2023-04-11T14:52:36.864Z] ----------------------------------------------------------------------
+[debug] [2023-04-11T14:52:36.867Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2023-04-11T14:52:36.867Z] CLI Version:   11.24.1
+[debug] [2023-04-11T14:52:36.867Z] Platform:      linux
+[debug] [2023-04-11T14:52:36.868Z] Node Version:  v16.18.0
+[debug] [2023-04-11T14:52:36.872Z] Time:          Tue Apr 11 2023 21:52:36 GMT+0700 (Indochina Time)
+[debug] [2023-04-11T14:52:36.873Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-04-11T14:52:36.878Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2023-04-11T14:52:36.986Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-04-11T14:52:36.987Z] > authorizing via signed-in user (chinhnd1096@gmail.com)
+[debug] [2023-04-11T14:52:36.987Z] [iam] checking project mall-eb5e9 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-04-11T14:52:36.988Z] > refreshing access token with scopes: []
+[debug] [2023-04-11T14:52:36.989Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-04-11T14:52:36.990Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[warn] ⚠  Unable to fetch the CLI MOTD and remote config. 
+[debug] [2023-04-11T14:54:51.152Z] Failed to fetch MOTD FirebaseError: Failed to make request to https://firebase-public.firebaseio.com/cli.json
+[debug] [2023-04-11T14:54:51.153Z] [iam] error while checking permissions, command may fail: FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2023-04-11T14:54:51.155Z] > refreshing access token with scopes: []
+[debug] [2023-04-11T14:54:51.156Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-04-11T14:54:51.156Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-04-11T14:57:04.265Z] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2023-04-11T14:57:09.284Z] Error: Timed out.
+    at Timeout._onTimeout (/usr/local/lib/node_modules/firebase-tools/lib/utils.js:253:49)
+    at listOnTimeout (node:internal/timers:559:17)
+    at processTimers (node:internal/timers:502:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2023-04-11T15:13:41.762Z] ----------------------------------------------------------------------
+[debug] [2023-04-11T15:13:41.765Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2023-04-11T15:13:41.765Z] CLI Version:   11.24.1
+[debug] [2023-04-11T15:13:41.765Z] Platform:      linux
+[debug] [2023-04-11T15:13:41.766Z] Node Version:  v16.18.0
+[debug] [2023-04-11T15:13:41.766Z] Time:          Tue Apr 11 2023 22:13:41 GMT+0700 (Indochina Time)
+[debug] [2023-04-11T15:13:41.766Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-04-11T15:13:41.770Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2023-04-11T15:13:41.875Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-04-11T15:13:41.876Z] > authorizing via signed-in user (chinhnd1096@gmail.com)
+[debug] [2023-04-11T15:13:41.876Z] [iam] checking project mall-eb5e9 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-04-11T15:13:41.878Z] > refreshing access token with scopes: []
+[debug] [2023-04-11T15:13:41.879Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-04-11T15:13:41.879Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-04-11T15:13:42.113Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-04-11T15:13:42.114Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-04-11T15:13:42.133Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/mall-eb5e9:testIamPermissions [none]
+[debug] [2023-04-11T15:13:42.134Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/mall-eb5e9:testIamPermissions x-goog-quota-user=projects/mall-eb5e9
+[debug] [2023-04-11T15:13:42.134Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/mall-eb5e9:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-04-11T15:13:43.206Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/mall-eb5e9:testIamPermissions 200
+[debug] [2023-04-11T15:13:43.206Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/mall-eb5e9:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-04-11T15:13:43.208Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/mall-eb5e9 [none]
+[debug] [2023-04-11T15:14:13.217Z] Timeout reached making request to https://firebase.googleapis.com/v1beta1/projects/mall-eb5e9
+[debug] [2023-04-11T15:14:13.395Z] FirebaseError: Timeout reached making request to https://firebase.googleapis.com/v1beta1/projects/mall-eb5e9
+    at RetryOperation._fn (/usr/local/lib/node_modules/firebase-tools/lib/apiv2.js:238:35)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[error] 
+[error] Error: Failed to get Firebase project mall-eb5e9. Please make sure the project exists and your account has permission to access it.

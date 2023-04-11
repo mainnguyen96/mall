@@ -7,6 +7,7 @@ import {
   setPersistence,
   browserLocalPersistence,
   onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 import {
   getDatabase,
@@ -88,14 +89,28 @@ export const setUserData = (userId, name, email, imageUrl) => {
   set(ref(firebaseDB, "users/" + userId), {
     username: name,
     email: email,
-    profile_picture: imageUrl,
+    avatar: imageUrl ? imageUrl : "",
   });
 };
 
-export const updateUserData = (userId, path, dataId, data) => {
+export const updateUserImage = async (userId, imageUrl) => {
+  const updates = {};
+  updates["users/" + userId + "/userImage"] = imageUrl;
+  const response = await update(ref(firebaseDB), updates);
+  return response;
+};
+
+export const deleteUserImage = async (userId) => {
+  console.log("userId:", userId);
+  await remove(ref(firebaseDB, "users/" + userId + "/userImage"));
+  return;
+};
+
+export const updateUserData = async (userId, path, dataId, data) => {
   const updates = {};
   updates[`users/${userId}/${path}${dataId ? "/" + dataId : ""}`] = data;
-  update(ref(firebaseDB), updates);
+  await update(ref(firebaseDB), updates);
+  return;
 };
 
 export const updateCartData = async (userId, productId, count) => {
@@ -108,7 +123,8 @@ export const updateCartData = async (userId, productId, count) => {
 };
 
 export const deleteCartData = async (userId, productId) => {
-  remove(ref(firebaseDB, "carts/" + userId + "/" + productId));
+  await remove(ref(firebaseDB, "carts/" + userId + "/" + productId));
+  return;
 };
 
 export const getCartData = async (userId) => {
@@ -168,4 +184,10 @@ export const emailLogin = async (auth, email, password) => {
   return user;
 };
 
-export { getAuth, setPersistence, browserLocalPersistence, onAuthStateChanged };
+export {
+  getAuth,
+  setPersistence,
+  browserLocalPersistence,
+  onAuthStateChanged,
+  signOut,
+};

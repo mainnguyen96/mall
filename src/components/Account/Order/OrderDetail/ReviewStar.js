@@ -1,18 +1,12 @@
-import classNames from "classnames/bind";
+import { useState } from "react";
 import { Field, useField } from "formik";
-import { useRef, useState } from "react";
-import StarOutline from "~/components/StarOutline";
+import classNames from "classnames/bind";
 
+import { reviewLabel } from "~/ultil";
+import StarOutline from "~/components/StarOutline";
 import styles from "./OrderDetail.module.css";
 
 const cx = classNames.bind(styles);
-const reviewLabel = [
-  "Dissatisfaction",
-  "Unsatisfied",
-  "Normal",
-  "Satisfied",
-  "Extremely satisfied",
-];
 
 function ReviewStar({ setReviewStar, reviewStar, ...props }) {
   const [rateHoverLevel, setRateHoverLevel] = useState([0, 0, 0, 0, 0]);

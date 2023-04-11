@@ -31,17 +31,10 @@ export const fetchShippingPrice = createAsyncThunk(
   "shipping/fetchShippingPrice",
   async ({ userId, userLocationId }) => {
     const locationData = await getData(
-      "users/" + userId + "/" + "locations" + "/" + userLocationId
+      `users/${userId}/locations/${userLocationId}`
     );
     const pricesData = await getData(
-      "shippingPrice/vietnam" +
-        "/" +
-        locationData.province +
-        "/districts/" +
-        locationData.district +
-        "/wards/" +
-        locationData.ward +
-        "/price"
+      `shippingPrice/vietnam/${locationData.province}/districts/${locationData.district}/wards/${locationData.ward}/price`
     );
     return pricesData;
   }

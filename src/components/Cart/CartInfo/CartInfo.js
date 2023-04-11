@@ -1,28 +1,27 @@
 import { Formik, Form, Field } from "formik";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Tippy from "@tippyjs/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 
+import { fetchCart, selectCartProducts } from "~/features/cartSlice";
+import { selectAuth } from "~/features/authSlice";
 import CartProduct from "../CartProduct";
 import styles from "./CartInfo.module.css";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectAuth } from "~/features/authSlice";
-import { fetchCart, selectCartProducts } from "~/features/cartSlice";
 
 const cx = classNames.bind(styles);
 
 function CartInfo({ setPurchaseProducts }) {
   const [selectedProducts, setSelectedProducts] = useState([]);
-  const [isReload, SetIsReload] = useState();
   const auth = useSelector(selectAuth);
   const products = useSelector(selectCartProducts);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchCart(auth.userId));
-    SetIsReload(true);
-  }, [auth.userId, isReload, dispatch]);
+  }, [auth.userId, dispatch]);
   const totalProducts = products?.length;
   const totalProductsId = products?.map((product) => product.id);
 
@@ -84,7 +83,6 @@ function CartInfo({ setPurchaseProducts }) {
               <tbody>
                 {products.map((product, index) => (
                   <CartProduct
-                    setReload={SetIsReload}
                     setPurchaseProducts={setPurchaseProducts}
                     count={product.data.count}
                     key={index}

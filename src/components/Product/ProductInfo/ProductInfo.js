@@ -4,14 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 
-import { updateCartData } from "~/firebaseServices/firebaseServices";
 import { authNeedSet, selectAuth } from "~/features/authSlice";
+import { addNewCartItem } from "~/features/cartSlice";
+import { convertCurrency } from "~/ultil";
 import ImageShow from "./ImageShow";
 import Ship from "./Ship";
 import Button from "../../Button";
 import Star from "~/components/Star";
 import styles from "./ProductInfo.module.css";
-import { setShowCartTippy } from "~/features/productsSlice";
 
 const cx = classNames.bind(styles);
 
@@ -26,12 +26,10 @@ function ProductInfo({
   productId,
 }) {
   const [quantity, setQuantity] = useState(1);
-  const dispatch = useDispatch();
   const auth = useSelector(selectAuth);
-  const currency = new Intl.NumberFormat("vi-VN", {
-    style: "currency",
-    currency: "VND",
-  }).format(price);
+  const dispatch = useDispatch();
+  const currency = convertCurrency(price);
+
   const handleSetQuantity = (action) => {
     if (action === "add") {
       setQuantity((prev) => {
@@ -48,8 +46,7 @@ function ProductInfo({
   };
   const handleBuyClick = () => {
     if (auth.auth) {
-      updateCartData(auth.userId, productId, quantity);
-      dispatch(setShowCartTippy(true));
+      dispatch(addNewCartItem({ userId: auth.userId, productId, quantity }));
     } else {
       dispatch(authNeedSet(true));
     }

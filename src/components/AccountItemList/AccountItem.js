@@ -5,11 +5,11 @@ import styles from "./AccountItemList.module.css";
 
 const cx = classNames.bind(styles);
 
-function AccountItem({ data, size, type }) {
+function AccountItem({ data, size, type, htmlFor }) {
   return (
     <div className={cx("item", type)}>
       <FontAwesomeIcon icon={data.icon} className={cx("icon", size)} />{" "}
-      {data.label}
+      <label htmlFor={htmlFor}>{data.label}</label>
     </div>
   );
 }

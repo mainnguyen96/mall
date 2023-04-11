@@ -1,18 +1,13 @@
-import { faCameraRetro, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import classNames from "classnames/bind";
-import { Formik, Form, Field } from "formik";
-import { ImageInput } from "formik-file-and-image-input";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import classNames from "classnames/bind";
 
+import { convertCurrency, getProductById } from "~/ultil";
 import Button from "~/components/Button";
 import Modal from "~/components/Modal";
-import { convertCurrency } from "~/ultil";
 import ReviewForm from "./ReviewForm";
 import styles from "./OrderDetail.module.css";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { selectProductsById } from "~/features/productsSlice";
 
 const cx = classNames.bind(styles);
 
@@ -20,8 +15,14 @@ function DetailProductItem({ product }) {
   const [productId, count] = product;
   const [productData, setProductData] = useState();
   const [isShowReview, SetIsShowReview] = useState(false);
+  const [productInfo, setProductInfo] = useState([]);
   const navigate = useNavigate();
-  const productInfo = useSelector(selectProductsById(productId));
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getProductById(productId).then((data) => setProductInfo(data));
+  }, [dispatch, productId]);
+
   useEffect(() => {
     setProductData({
       name: productInfo.data.name,

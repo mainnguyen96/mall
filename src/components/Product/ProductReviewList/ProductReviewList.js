@@ -1,6 +1,13 @@
+import { useEffect } from "react";
 import { Formik, Form } from "formik";
 import classNames from "classnames/bind";
 
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchProductReview,
+  selectReviewData,
+  selectReviewImages,
+} from "~/features/reviewSlice";
 import FilterItem from "./FilterItem";
 import RateClassify from "./RateClassify";
 import Review from "./Review";
@@ -9,16 +16,16 @@ import StarOutline from "~/components/StarOutline";
 import styles from "./ProductReviewList.module.css";
 
 const cx = classNames.bind(styles);
-const image = [
-  "https://salt.tikicdn.com/cache/750x750/ts/review/a0/4a/31/bf231a6e8b8be6f02de1e40aeba679b2.jpg.webp",
-  "https://salt.tikicdn.com/cache/750x750/ts/review/8d/24/30/bc1d8d4093e12a03bc026633d29c60a7.jpg.webp",
-  "https://salt.tikicdn.com/cache/750x750/ts/review/d9/12/a8/f0dce7a4451ece9d713f1d9f33ca08c2.jpg.webp",
-  "https://salt.tikicdn.com/cache/750x750/ts/review/45/99/55/4145f1f15c1c3ae0dad34660abc1a03e.jpg.webp",
-];
 
 const filter = ["1", "2", "3", "4", "5"];
 
-function ProductReviewList({ rate, review }) {
+function ProductReviewList({ rate, review, productId }) {
+  const reviewsData = useSelector(selectReviewData);
+  const reviewImages = useSelector(selectReviewImages);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchProductReview(productId));
+  }, [dispatch, productId]);
   return (
     <div className={cx("wrapper")}>
       <h3 className={cx("label")}>Reviews - Reviews From Customers</h3>
@@ -35,9 +42,11 @@ function ProductReviewList({ rate, review }) {
         </div>
         <div className={cx("filter-section")}>
           <div className={cx("all-img")}>
-            <div className={cx("img-label")}>All images ( 157 )</div>
+            <div className={cx("img-label")}>
+              All images ( {reviewImages.length} )
+            </div>
             <ul className={cx("img-list")}>
-              {image.map((img, index) => (
+              {reviewImages.map((img, index) => (
                 <li key={index} className={cx("img-item")}>
                   <img src={img} alt="product" />
                 </li>
@@ -71,9 +80,9 @@ function ProductReviewList({ rate, review }) {
           </div>
         </div>
       </div>
-      <Review />
-      <Review />
-      <Review />
+      {reviewsData.map((review) => (
+        <Review key={review.reviewId} reviewData={review} />
+      ))}
     </div>
   );
 }

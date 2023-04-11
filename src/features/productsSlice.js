@@ -65,6 +65,4 @@ const productsSlice = createSlice({
 export const { setShowCartTippy } = productsSlice.actions;
 export const selectAllProducts = (state) => state.products.products;
 export const selectShowCartTippy = (state) => state.products.showCartTippy;
-export const selectProductsById = (productId) => (state) =>
-  state.products.products.filter((product) => product.id === productId)[0];
 export default productsSlice.reducer;

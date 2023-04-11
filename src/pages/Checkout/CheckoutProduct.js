@@ -2,19 +2,22 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import classNames from "classnames/bind";
 
-import { selectProductsById } from "~/features/productsSlice";
-import { convertCurrency } from "~/ultil";
+import { convertCurrency, getProductById } from "~/ultil";
 import styles from "./Checkout.module.css";
 
 const cx = classNames.bind(styles);
 
 function CheckoutProduct({ productId, count }) {
   const [productInfo, setProductInfo] = useState();
-  const product = useSelector(selectProductsById(productId));
+  const [product, setProduct] = useState();
   const fetchProductsStatus = useSelector((state) => state.products.status);
 
   useEffect(() => {
-    if (fetchProductsStatus === "succeeded") {
+    getProductById(productId).then((data) => setProduct(data));
+  });
+
+  useEffect(() => {
+    if (product) {
       setProductInfo({
         name: product.data.name,
         priceFormat: convertCurrency(product.data.price),

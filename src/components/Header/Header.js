@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Tippy from "@tippyjs/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBell,
   faCartShopping,
@@ -12,8 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 
-import { signOut, getAuth } from "firebase/auth";
-import { selectAuth, selectUserLocation } from "~/features/authSlice";
+import { logOut, selectAuth, selectUserLocation } from "~/features/authSlice";
 import {
   fetchProducts,
   selectShowCartTippy,
@@ -23,9 +23,8 @@ import BarItem from "../BarItem";
 import Search from "../Search";
 import config from "../../config";
 import logo from "~/assets/images/logo.png";
-import styles from "./Header.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../Button";
+import styles from "./Header.module.css";
 
 const cx = classNames.bind(styles);
 
@@ -48,6 +47,7 @@ const Header = ({ onAuthClick, onDeliveryClick }) => {
   const auth = useSelector(selectAuth);
   const userLocation = useSelector(selectUserLocation);
   const navigate = useNavigate();
+
   const reloadProduct = () => {
     dispatch(fetchProducts());
   };
@@ -60,10 +60,7 @@ const Header = ({ onAuthClick, onDeliveryClick }) => {
 
   const handleAccountMenuClick = (menu) => {
     if (menu === "logout") {
-      const auth = getAuth();
-      signOut(auth).then(() => {
-        window.location.reload();
-      });
+      dispatch(logOut());
     } else {
       navigate(menu);
     }
@@ -94,7 +91,7 @@ const Header = ({ onAuthClick, onDeliveryClick }) => {
         className={cx("func-item", "account")}
       >
         <BarItem
-          label={auth.auth ? auth.userName : menu.label}
+          label={auth.auth ? auth.userData.name : menu.label}
           icon={menu.icon}
         />
       </li>

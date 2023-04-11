@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { getData } from "~/firebaseServices";
 import {
-  convertCurrency,
   timeCompare,
   convertStringToDateFormat,
   getShippingInfo,

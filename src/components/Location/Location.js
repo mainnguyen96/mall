@@ -22,7 +22,7 @@ function Location({ onChangeClick }) {
         />
       </div>
       <div className={cx("info")}>
-        <p className={cx("name")}>{auth.userName}</p>
+        <p className={cx("name")}>{auth.userData.name}</p>
         <p className={cx("phone")}>0398289941</p>
       </div>
       <p className={cx("address")}>{userLocation?.label}</p>

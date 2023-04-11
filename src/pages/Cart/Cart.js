@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
 
-import { fetchAuth, selectAuth } from "~/features/authSlice";
+import { fetchAuth, selectAuth, selectHasAuth } from "~/features/authSlice";
 import TemplePage from "../TemplePage";
 import Bill from "~/components/Cart/Bill";
 import Location from "~/components/Location";
@@ -20,18 +20,23 @@ function Cart() {
     products: {},
   });
   const auth = useSelector(selectAuth);
+  const hasAuth = useSelector(selectHasAuth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchAuth());
-    if (!auth.auth) {
+    if (hasAuth === null) {
+      dispatch(fetchAuth());
+    }
+  }, [hasAuth, dispatch]);
+
+  useEffect(() => {
+    if (!auth.auth && hasAuth !== null) {
       navigate(routes.home);
     }
-  }, [auth.auth, dispatch, navigate]);
+  }, [auth.auth, dispatch, navigate, hasAuth]);
 
   const handleBuy = () => {
-    console.log("purchase:", purchaseProducts);
     const purchase = Object.entries(purchaseProducts.products).filter(
       ([id, count]) => count > 0
     );

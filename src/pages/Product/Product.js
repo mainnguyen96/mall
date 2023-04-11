@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import classNames from "classnames/bind";
 
@@ -7,12 +8,17 @@ import ProductInfo from "~/components/Product/ProductInfo";
 import ProductReviewList from "~/components/Product/ProductReviewList";
 import ProductSimilar from "~/components/Product/ProductSimilar";
 import TemplePage from "../TemplePage";
-import { useSelector } from "react-redux";
-import { selectProductsById } from "~/features/productsSlice";
+import { useEffect, useState } from "react";
+import { getProductById } from "~/ultil";
 
 function Product() {
   const params = useParams();
-  const productData = useSelector(selectProductsById(params.productId));
+  const [productData, setProductData] = useState();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    getProductById(params.productId).then((data) => setProductData(data));
+  }, [dispatch, params.productId]);
 
   return (
     <TemplePage showSidebar={false}>
@@ -35,6 +41,7 @@ function Product() {
             <ProductReviewList
               rate={productData.data.star}
               review={productData.data.review}
+              productId={productData.id}
             />
           </div>
         </>

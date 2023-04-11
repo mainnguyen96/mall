@@ -67,6 +67,10 @@
   height: 40px;
 }
 
+.item label {
+  cursor: pointer;
+}
+
 .normal {
   cursor: default;
   color: black;

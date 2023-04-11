@@ -15,7 +15,6 @@ export const fetchCateProducts = createAsyncThunk(
   async (cate) => {
     let response = [];
     await getData("products", "category", cate).then((data) => {
-      console.log("data:", data);
       for (let id in data) {
         response.push({
           id: id,
@@ -72,7 +71,7 @@ export const fetchFilterProducts = createAsyncThunk(
         console.log("...:", Object.entries(filter));
         let [[key, value]] = Object.entries(filter);
         console.log("key:", key);
-        ret = ret && product[key] == value;
+        ret = ret && product[key] === value;
       });
       return ret;
     });

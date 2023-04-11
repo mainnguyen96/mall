@@ -76,7 +76,7 @@ function Delivery({ onClose }) {
         of delivery time and packaging and shipping fees.
       </p>
       <Formik
-        initialValues={{ location: currentUserLocation.id }}
+        initialValues={{ location: currentUserLocation?.id }}
         onSubmit={(values) => {
           if (values.location === "another") {
             const id = nanoid();

@@ -8,6 +8,7 @@ import shippingReducer from "./shippingSlice";
 import purchasesReducer from "./purchasesSlice";
 import footerReducer from "./footerSlice";
 import categoryRedcer from "./categorySlice";
+import reviewReducer from "./reviewSlice";
 
 export default configureStore({
   reducer: {
@@ -19,5 +20,6 @@ export default configureStore({
     purchases: purchasesReducer,
     footers: footerReducer,
     category: categoryRedcer,
+    review: reviewReducer,
   },
 });

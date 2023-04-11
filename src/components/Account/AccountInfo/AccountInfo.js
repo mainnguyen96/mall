@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { Formik, Form } from "formik";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Formik, Form, Field } from "formik";
 import Tippy from "@tippyjs/react";
 import {
   faEnvelope,
@@ -13,18 +14,23 @@ import {
 import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import classNames from "classnames/bind";
 
-import { authSet, fetchUserData, selectUserData } from "~/features/authSlice";
+import { updateUserData } from "~/firebaseServices";
+import { processImageForUpload } from "~/ultil";
+import {
+  authSet,
+  selectUserData,
+  removeAvatar,
+  selectAuth,
+  updateAvatar,
+} from "~/features/authSlice";
 import AccountPage from "../AccountPage/AccountPage";
 import Button from "~/components/Button";
 import AccountItem from "~/components/AccountItemList/AccountItem";
 import RadioForm from "~/components/Form/RadioForm";
 import SelectForm from "~/components/Form/SelectForm/SelectForm";
+import AccountImage from "~/components/Image/AccountImage";
 import TextForm from "~/components/Form/TextForm/TextForm";
 import styles from "./AccountInfo.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { selectAuth } from "~/features/authSlice";
-import AccountImage from "~/components/Image/AccountImage";
-import { updateUserData } from "~/firebaseServices";
 
 const cx = classNames.bind(styles);
 const birthYear = [];
@@ -40,29 +46,31 @@ const avatarMenu = [
   {
     icon: faImage,
     label: "See profile picture",
+    id: "picture",
   },
   {
     icon: faFileArrowUp,
     label: "Update profile picture",
+    id: "update",
   },
   {
     icon: faTrashCan,
     label: "Delete profile picture",
+    id: "remove",
   },
 ];
 
 function AccountInfo() {
   const [birthDay, setBirthDay] = useState(monthDay);
+  const [tippyInstance, setTippyInstance] = useState(null);
   const userData = useSelector(selectUserData);
   const dispatch = useDispatch();
   const auth = useSelector(selectAuth);
-  useEffect(() => {
-    dispatch(fetchUserData());
-  }, [dispatch]);
 
   const getDays = (year, month) => {
     return new Date(year, month, 0).getDate();
   };
+
   const handleChangeDay = (year, month) => {
     const numberOfDay = getDays(year, month);
     console.log("number day:", numberOfDay);
@@ -73,13 +81,67 @@ function AccountInfo() {
     setBirthDay(day);
   };
 
+  const handleRemoveAvatar = () => {
+    tippyInstance.hide();
+    dispatch(removeAvatar());
+  };
+
   const Avatar = (
     <ul className={cx("avatar-menu")}>
-      {avatarMenu.map((avatar, index) => (
-        <li key={index}>
-          <AccountItem data={avatar} size={"small"} />
-        </li>
-      ))}
+      {avatarMenu.map((avatar, index) => {
+        switch (avatar.id) {
+          case "update": {
+            return (
+              <li key={index} className={cx("avatar-menu-item")}>
+                <AccountItem
+                  htmlFor={"userImage"}
+                  data={avatar}
+                  size={"small"}
+                />
+                <Formik initialValues={{ userImage: "" }}>
+                  {(formik) => (
+                    <Form className={cx("avatar-form")}>
+                      <Field
+                        type="file"
+                        name="userImage"
+                        id="userImage"
+                        accept={"image/*"}
+                        className={cx("avatar-input")}
+                        onChange={(event) => {
+                          tippyInstance.hide();
+                          processImageForUpload(event.target.files[0]).then(
+                            (url) => {
+                              dispatch(updateAvatar(url));
+                            }
+                          );
+                        }}
+                      />
+                    </Form>
+                  )}
+                </Formik>
+              </li>
+            );
+          }
+          case "remove": {
+            return (
+              <li
+                onClick={handleRemoveAvatar}
+                key={index}
+                className={cx("avatar-menu-item")}
+              >
+                <AccountItem data={avatar} size={"small"} />
+              </li>
+            );
+          }
+          default: {
+            return (
+              <li key={index} className={cx("avatar-menu-item")}>
+                <AccountItem data={avatar} size={"small"} />
+              </li>
+            );
+          }
+        }
+      })}
     </ul>
   );
 
@@ -94,17 +156,17 @@ function AccountInfo() {
     );
   };
   return (
-    <AccountPage header={"Account Infomation"}>
-      {userData && (
+    <AccountPage header={"Account Information"}>
+      {userData.name && (
         <div className={cx("wrapper")}>
           <section className={cx("personal")}>
-            <h3 className={cx("label")}>Personal Infomation</h3>
+            <h3 className={cx("label")}>Personal Information</h3>
             <Formik
               initialValues={{
-                name: auth.userName,
-                birthYear: userData?.birthYear || "Year",
-                birthMonth: userData?.birthMonth || "Month",
-                birthDay: userData?.birthDay || "Date",
+                name: userData?.name,
+                birthYear: userData?.birthYear || 1970,
+                birthMonth: userData?.birthMonth || 1,
+                birthDay: userData?.birthDay || 1,
                 sex: userData?.sex,
               }}
               onSubmit={(values) => {
@@ -142,19 +204,22 @@ function AccountInfo() {
                   }
                 >
                   <div className={cx("name")}>
-                    <Tippy
-                      content={Avatar}
-                      interactive={true}
-                      placement={"bottom"}
-                      // visible={true}
-                      trigger={"click"}
-                    >
-                      <AccountImage
-                        src={auth.userImage}
-                        alt={"personal avatar"}
-                        className={cx("avatar")}
-                      />
-                    </Tippy>
+                    <div>
+                      <Tippy
+                        content={Avatar}
+                        interactive={true}
+                        placement={"bottom"}
+                        trigger={"click"}
+                        hideOnClick={true}
+                        onCreate={(instance) => setTippyInstance(instance)}
+                      >
+                        <AccountImage
+                          src={auth.userData.avatar}
+                          alt={"personal avatar"}
+                          className={cx("avatar")}
+                        />
+                      </Tippy>
+                    </div>
                     <TextForm
                       id={"name"}
                       name={"name"}

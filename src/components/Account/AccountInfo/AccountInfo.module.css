@@ -22,6 +22,12 @@
   width: fit-content;
 }
 
+.avatar-form {
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+
 .avatar {
   height: 104px;
   width: 104px;
@@ -29,6 +35,13 @@
   border-radius: 50%;
   margin: 20px;
   cursor: pointer;
+}
+
+.avatar-input {
+  display: inline;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
 }
 
 .birthday {
@@ -58,8 +71,17 @@
   list-style: none;
   background-color: white;
   box-shadow: 0 0 10px 1px var(--hover-color);
-  padding: 5px 0;
+  padding: 5px;
   border-radius: 18px;
+}
+
+.avatar-menu-item {
+  border-radius: 10px;
+}
+
+.avatar-menu-item:hover {
+  color: var(--primary-color);
+  background-color: var(--hover-color);
 }
 
 .other {

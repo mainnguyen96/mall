@@ -67,6 +67,7 @@
 }
 
 .content {
+  margin-top: 10px;
   font-size: 1.3rem;
   width: 770px;
 }
@@ -78,8 +79,12 @@
 }
 
 .image-item img {
+  border-radius: 20px;
   height: 152px;
   width: 152px;
+  padding: 5px;
+  object-fit: cover;
+  cursor: pointer;
 }
 
 .review-time {

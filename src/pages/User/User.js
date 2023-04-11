@@ -11,20 +11,27 @@ import TemplePage from "../TemplePage";
 import styles from "./User.module.css";
 import OrderDetail from "~/components/Account/Order/OrderDetail";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAuth, selectAuth } from "~/features/authSlice";
+import { fetchAuth, selectAuth, selectHasAuth } from "~/features/authSlice";
 
 const cx = classNames.bind(styles);
 
 function User() {
   const auth = useSelector(selectAuth);
+  const hasAuth = useSelector(selectHasAuth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(fetchAuth());
-    if (!auth.auth) {
+    if (hasAuth === null) {
+      dispatch(fetchAuth());
+    }
+  }, [hasAuth, dispatch]);
+
+  useEffect(() => {
+    if (!auth.auth && hasAuth !== null) {
       navigate(routes.home);
     }
-  }, [auth.auth, navigate, dispatch]);
+  }, [auth.auth, navigate, dispatch, hasAuth]);
   return (
     <TemplePage showSidebar={false}>
       <div className={cx("wrapper")}>

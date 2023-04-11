@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useField, Field } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames/bind";
 
-import { deleteCartData } from "~/firebaseServices";
-import { selectAuth } from "~/features/authSlice";
-import { selectProductsById } from "~/features/productsSlice";
+import { convertCurrency, getProductById } from "~/ultil";
+import { removeCartItem } from "~/features/cartSlice";
 import styles from "./CartProduct.module.css";
 
 const cx = classNames.bind(styles);
@@ -16,30 +15,27 @@ function CartProduct({
   productId,
   count,
   setPurchaseProducts,
-  setReload,
   selected,
   ...props
 }) {
   const [quantity, setQuantity] = useState(count);
   const [productInfo, setProductInfo] = useState();
-  const productData = useSelector(selectProductsById(productId));
-  const auth = useSelector(selectAuth);
+  const [productData, setProductData] = useState();
+  const dispatch = useDispatch();
   const [field, meta] = useField(props);
 
   useEffect(() => {
+    getProductById(productId).then((data) => setProductData(data));
+  }, [dispatch, productId]);
+
+  useEffect(() => {
     setProductInfo({
-      name: productData.data.name,
-      priceFormat: new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND",
-      }).format(productData.data.price),
-      price: productData.data.price,
-      img: productData.data.img[0],
-      totalFormat: new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND",
-      }).format(productData.data.price * count),
-      total: productData.data.price * count,
+      name: productData?.data.name,
+      priceFormat: convertCurrency(productData?.data.price),
+      price: productData?.data.price,
+      img: productData?.data.img[0],
+      totalFormat: convertCurrency(productData?.data.price * count),
+      total: productData?.data.price * count,
     });
   }, [productData, count]);
 
@@ -70,10 +66,7 @@ function CartProduct({
     setProductInfo((prev) => ({
       ...prev,
       total: prev?.price * quantity,
-      totalFormat: new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND",
-      }).format(prev?.price * quantity),
+      totalFormat: convertCurrency(prev?.price * quantity),
     }));
   }, [quantity]);
 
@@ -119,8 +112,7 @@ function CartProduct({
   };
 
   const handleRemoveProduct = () => {
-    deleteCartData(auth.userId, productId);
-    setReload(false);
+    dispatch(removeCartItem(productId));
   };
 
   return (

@@ -11,6 +11,8 @@ import { updatePurchaseData } from "~/firebaseServices";
 import {
   fetchAuth,
   selectAuth,
+  selectAuthDone,
+  selectHasAuth,
   selectUserLocation,
 } from "~/features/authSlice";
 import {
@@ -42,17 +44,23 @@ function Checkout() {
   const currentShippingMethod = useSelector(selectCurrentShippingMethod);
   const currentShippingPrice = useSelector(selectCurrentShippingPrice);
   const auth = useSelector(selectAuth);
+  const hasAuth = useSelector(selectHasAuth);
   const currentUserLocation = useSelector(selectUserLocation);
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchAuth());
-    if (!auth.auth) {
+    if (hasAuth === null) {
+      dispatch(fetchAuth());
+    }
+  }, [hasAuth, dispatch]);
+
+  useEffect(() => {
+    if (!auth.auth && hasAuth !== null) {
       navigate(routes.home);
     }
-  }, [navigate, auth.auth, dispatch]);
+  }, [navigate, auth.auth, dispatch, hasAuth]);
 
   useEffect(() => {
     dispatch(fetchShippingMethods());
@@ -81,9 +89,10 @@ function Checkout() {
     data.shippingMethod = currentShippingMethod.id;
     products.map(([id, count]) => {
       data.products[id] = count;
+      return undefined;
     });
     const purchaseId = nanoid();
-    updatePurchaseData(auth.currentUser.uid, purchaseId, data);
+    updatePurchaseData(auth.userId, purchaseId, data);
   };
 
   return (
@@ -112,7 +121,7 @@ function Checkout() {
                 onSubmit={(values) => {
                   const id = values.shippingMethod;
                   const [label] = shippingMethods.filter(
-                    (method) => method.id == id
+                    (method) => method.id === id
                   );
                   dispatch(
                     setCurrentShippingMethod({ id: id, label: label.label })

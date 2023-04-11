@@ -7,7 +7,7 @@ import styles from "./Image.module.css";
 
 const cx = classNames.bind(styles);
 
-function AccountImage({ src, ref, alt, ...props }) {
+const AccountImage = forwardRef(({ src, alt, ...props }, ref) => {
   return (
     <Image
       src={src}
@@ -17,8 +17,6 @@ function AccountImage({ src, ref, alt, ...props }) {
       fallback={images.noAccountImage}
     />
   );
-}
+});
 
-export default forwardRef((props, ref) => (
-  <AccountImage {...props} ref={ref} />
-));
+export default AccountImage;

@@ -1,31 +1,42 @@
-import classNames from "classnames/bind";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Formik, Form, Field } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faCameraRetro } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames/bind";
 
+import { updateReview } from "~/firebaseServices";
+import { selectAuth } from "~/features/authSlice";
+import { processImageForUpload } from "~/ultil";
 import ReviewStar from "./ReviewStar";
 import Button from "~/components/Button";
 import styles from "./OrderDetail.module.css";
-import { updateReview } from "~/firebaseServices/firebaseServices";
-import { useSelector } from "react-redux";
-import { selectAuth } from "~/features/authSlice";
 
 const cx = classNames.bind(styles);
 
 function ReviewForm({ productData, SetIsShowReview }) {
   const [images, setImages] = useState([]);
+  const [imagesForUpload, setImageForUpload] = useState(null);
   const [reviewStar, setReviewStar] = useState(0);
   const [comment, setComment] = useState();
   const auth = useSelector(selectAuth);
 
+  const processReviewImagesForUpload = async () => {
+    const uploadImages = [];
+    for (let i = 0; i < imagesForUpload.length; i++) {
+      await processImageForUpload(imagesForUpload[i]).then((url) =>
+        uploadImages.push(url)
+      );
+    }
+    return uploadImages;
+  };
+
   const handleAddImages = (images) => {
-    console.log("run");
     const thumbs = [];
     for (let i = 0; i < images.length; i++) {
       thumbs.push(URL.createObjectURL(images[i]));
     }
-    console.log("thumbs:", thumbs);
+    setImageForUpload(images);
     setImages(thumbs);
   };
   const handleRemoveImage = (url) => {
@@ -37,10 +48,14 @@ function ReviewForm({ productData, SetIsShowReview }) {
       initialValues={{ rate: reviewStar, thumbs: images, comment: comment }}
       enableReinitialize={true}
       onSubmit={(values) => {
-        const data = {
-          ...values,
-        };
-        updateReview(auth.userId, productData.id, data);
+        processReviewImagesForUpload().then((uploadImages) => {
+          const data = {
+            rate: values.rate,
+            comment: values.comment,
+            images: uploadImages,
+          };
+          updateReview(auth.userId, productData.id, data);
+        });
       }}
     >
       {(formik) => (

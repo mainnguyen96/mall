@@ -5,6 +5,7 @@ import { getData } from "~/firebaseServices";
 const initState = {
   footerTypes: [],
   footerData: [],
+  status: "idle",
 };
 
 export const fetchFooterTypes = createAsyncThunk(
@@ -48,6 +49,7 @@ const footerSlice = createSlice({
     builder
       .addCase(fetchFooterTypes.fulfilled, (state, action) => {
         state.footerTypes = action.payload;
+        state.status = "succeed";
       })
       .addCase(fetchFooterData.fulfilled, (state, action) => {
         state.footerData = action.payload;
@@ -58,4 +60,5 @@ const footerSlice = createSlice({
 export const selectFooterTypes = (state) => state.footers.footerTypes;
 export const selectFooterDataByType = (type) => (state) =>
   state.footers.footerData.filter((data) => data.data.type === type);
+export const selectFooterStatus = (state) => state.footers.status;
 export default footerSlice.reducer;
