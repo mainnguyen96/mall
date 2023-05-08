@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: npm i react-app-rewired
       - run: npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
