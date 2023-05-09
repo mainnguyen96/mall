@@ -8,7 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    env:
+        CI: false
     steps:
       - name: Development Code
         uses: actions/checkout@v2
