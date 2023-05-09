@@ -27,7 +27,9 @@
     "react-window": "^1.8.8",
     "web-vitals": "^2.1.4",
     "yup": "^1.0.0",
-    "react-app-rewired": "^2.2.1"
+    "react-app-rewired": "^2.2.1",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "customize-cra": "^1.0.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -54,7 +56,6 @@
     ]
   },
   "devDependencies": {
-    "babel-plugin-module-resolver": "^4.1.0",
-    "customize-cra": "^1.0.0"
+    
   }
 }
